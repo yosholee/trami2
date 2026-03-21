@@ -1,9 +1,9 @@
 import { mergeAndNormalizeEvents } from "@/lib/tracking-event-merge";
 
 /**
- * Server-only: production API first → new API fallback → HM historial per HBL.
+ * Server-only: `api.ctenvios.com` lookup first → `tracking.ctenvios.com` fallback → HM historial per HBL.
  *
- * Production (`tracking.ctenvios.com`) requires header `api-key`: set `TRACKING_PRODUCTION_API_KEY` or
+ * Production (`tracking.ctenvios.com`) uses header `api-key`: `TRACKING_PRODUCTION_API_KEY` or
  * `TRACKING_API_KEY`; otherwise a built-in default is used for `DEFAULT_PRODUCTION_BASE`.
  */
 
@@ -286,24 +286,11 @@ export async function enrichInvoiceWithHistorial(data: unknown): Promise<void> {
 }
 
 /**
- * 1) `fetchFromProduction` (`DEFAULT_PRODUCTION_BASE` / `TRACKING_PRODUCTION_URL`).
- * 2) If that throws or payload is empty / not found → `fetchFromNewTracking` (`DEFAULT_NEW_ORIGIN` / env).
+ * 1) `fetchFromNewTracking` (`api.ctenvios.com` / `TRACKING_NEW_URL`).
+ * 2) If that throws or payload is empty / not found → `fetchFromProduction` (`tracking.ctenvios.com`).
  * Enrichment runs after a successful payload from either source.
  */
 export async function runTrackingLookup(trimmedId: string, isOrderId: boolean): Promise<unknown> {
-   let prodData: unknown;
-   try {
-      prodData = await fetchFromProduction(trimmedId);
-   } catch {
-      prodData = undefined;
-   }
-
-   const prodReady = prodData !== undefined ? prepareLookupPayload(prodData) : null;
-   if (prodReady != null) {
-      await enrichInvoiceWithHistorial(prodReady);
-      return prodReady;
-   }
-
    let newData: unknown;
    try {
       newData = await fetchFromNewTracking(trimmedId, isOrderId);
@@ -315,6 +302,19 @@ export async function runTrackingLookup(trimmedId: string, isOrderId: boolean): 
    if (newReady != null) {
       await enrichInvoiceWithHistorial(newReady);
       return newReady;
+   }
+
+   let prodData: unknown;
+   try {
+      prodData = await fetchFromProduction(trimmedId);
+   } catch {
+      prodData = undefined;
+   }
+
+   const prodReady = prodData !== undefined ? prepareLookupPayload(prodData) : null;
+   if (prodReady != null) {
+      await enrichInvoiceWithHistorial(prodReady);
+      return prodReady;
    }
 
    throw new Error("not_found");
