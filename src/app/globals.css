@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,6 +46,14 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 :root {
@@ -117,6 +125,48 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Magic UI–style ripple animation (https://magicui.design/docs/components/ripple) */
+@keyframes ripple {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.hero-float {
+  animation: hero-float 4.2s ease-in-out infinite;
+}
+
+.hero-float-delay-1 {
+  animation-delay: 0.6s;
+}
+
+.hero-float-delay-2 {
+  animation-delay: 1.2s;
+}
+
+.hero-float-delay-3 {
+  animation-delay: 1.8s;
+}
+
+.hero-float-slow {
+  animation: hero-float 5.5s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -126,5 +176,62 @@
   }
   html {
     @apply font-sans;
+  }
+
+  /* MapLibre popups inside React markers */
+  .maplibregl-popup-content {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .maplibregl-popup-tip {
+    display: none;
+  }
+
+  .location-tracking-map .maplibregl-ctrl-attrib,
+  .location-tracking-map .maplibregl-ctrl-logo {
+    display: none !important;
+  }
+}
+
+@keyframes province-pin-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  65%,
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+
+@keyframes province-pin-dot-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.22);
+    filter: brightness(1.18);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .location-tracking-map .province-pin-ping {
+    animation-name: province-pin-ping;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    animation-iteration-count: infinite;
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+
+  .location-tracking-map .province-pin-dot {
+    animation-name: province-pin-dot-pulse;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    transform-origin: center;
+    will-change: transform;
   }
 }
