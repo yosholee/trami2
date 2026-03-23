@@ -16,7 +16,7 @@ export const socialFacebookUrl = "https://www.facebook.com/TramiXpress/";
 
 /** Google Search for TramiXpress (Business / reviews surface in results). */
 export const socialGoogleUrl =
-   "https://www.google.com/search?q=TramiXpress+Bradenton+FL";
+   "https://www.google.com/search?q=TramiXpress+Sarasota+Bradenton+Tampa+Cuba+shipping";
 
 /** WhatsApp Business number for wa.me (digits only, with country code, no +). Matches public support line. */
 export const whatsappBusinessNumber = "19412782357";
@@ -49,14 +49,17 @@ export function trackingUrlForId(trackingId: string): string {
 export const siteName = "TramiXpress";
 
 export const siteDescription =
-   "Fast, reliable door-to-door shipping to Cuba. Air and sea options, food and medicine combos, real-time tracking, insurance, and 24/7 support. Trusted by 5,000+ customers.";
+   "Door-to-door shipping to Cuba from Florida's Gulf Coast: Sarasota, Bradenton, and Tampa. Air and sea, food and medicine combos, real-time tracking, insurance, and 24/7 support.";
 
-export const siteTagline = "The #1 shipping service to Cuba for packages, food, essentials, and medicine.";
+export const siteTagline =
+   "Cuba shipping from Sarasota, Bradenton & Tampa—packages, food, essentials, and medicine.";
 
 export const keywords: string[] = [
-   "shipping to Cuba",
-   "send packages to Cuba",
-   "Cuba courier",
+   "shipping to Cuba from Sarasota",
+   "shipping to Cuba Bradenton",
+   "shipping to Cuba Tampa",
+   "Tampa Bay Cuba shipping",
+   "Gulf Coast Florida to Cuba",
    "door to door Cuba",
    "air shipping Cuba",
    "sea freight Cuba",
@@ -65,5 +68,4 @@ export const keywords: string[] = [
    "envíos a Cuba",
    "paquetes a Cuba",
    "Havana delivery",
-   "Miami to Cuba shipping",
 ];

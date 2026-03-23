@@ -2,11 +2,11 @@ import type { LandingMessages } from "@/i18n/types";
 
 export const es: LandingMessages = {
    meta: {
-      title: "TramiXpress | Envíos rápidos y seguros a Cuba",
+      title: "TramiXpress | Envíos a Cuba desde Sarasota, Bradenton y Tampa",
       description:
-         "Envíos puerta a puerta a Cuba: aéreo y marítimo, combos de alimentos y medicinas, seguimiento en tiempo real, seguro y soporte 24/7. Más de 5.000 clientes de confianza.",
+         "Envíos puerta a puerta a Cuba desde la Costa del Golfo de Florida: recogidas y consolidación en Sarasota, Bradenton y Tampa. Aéreo y marítimo, alimentos y medicinas, rastreo en tiempo real y soporte 24/7.",
       keywords:
-         "envíos a Cuba,paquetes a Cuba,TramiXpress,envío marítimo Cuba,envío aéreo Cuba,medicina a Cuba,comida a Cuba,La Habana,Miami a Cuba",
+         "envíos a Cuba desde Sarasota,envíos a Cuba Bradenton,envíos a Cuba Tampa,paquetes a Cuba Florida,TramiXpress,Costa del Golfo Florida a Cuba,envío marítimo Cuba,envío aéreo Cuba,Tampa Bay a Cuba,Manatee County envíos Cuba",
       ogLocale: "es_ES",
    },
    nav: {
@@ -27,10 +27,10 @@ export const es: LandingMessages = {
       en: "EN",
    },
    hero: {
-      badge: "El servicio de envíos #1 a Cuba",
+      badge: "Envíos a Cuba desde Sarasota, Bradenton y Tampa",
       h1Lead: "Tú lo necesitas, ",
       h1Accent: "nosotros lo entregamos",
-      sub: "Paquetes, alimentos y lo esencial para tus seres queridos en Cuba: seguimiento en tiempo real, precios claros y la confianza de más de 5.000 clientes.",
+      sub: "Operamos principalmente desde Sarasota, Bradenton y Tampa: paquetes, alimentos y lo esencial para tu familia en Cuba, con rastreo en tiempo real, precios claros y miles de clientes de confianza en la Costa del Golfo.",
       ctaAccount: "Contactar por WhatsApp",
       ctaServices: "Rastrear envío",
       ctaWhatsappAria: "Contactar a TramiXpress por WhatsApp — se abre en una pestaña nueva",
@@ -43,7 +43,7 @@ export const es: LandingMessages = {
       calloutHitch: "contratiempos",
       calloutPrior: "Priorizando la ",
       calloutConvenience: "comodidad del cliente",
-      mobileTagline: "Bien empacado, rápido a Cuba, pensado para tu familia.",
+      mobileTagline: "Desde la Costa del Golfo (Sarasota, Bradenton, Tampa) a Cuba — pensado para tu familia.",
       imageAlt: "Mensajero sonriente en scooter amarillo con paquetes apilados",
    },
    trust: {
@@ -53,7 +53,8 @@ export const es: LandingMessages = {
       secureTitle: "100 % seguro",
       secureDetail: "Seguro incluido en servicios elegibles: tu envío va protegido en tránsito.",
       supportTitle: "Soporte 24/7",
-      supportDetail: "Equipo dedicado para rastreo, aduanas y ayuda con recogidas.",
+      supportDetail:
+         "Equipo dedicado para rastreo, aduanas y recogidas en Sarasota, Bradenton, Tampa y alrededores.",
    },
    value: {
       tabExperience: "Experiencia",
@@ -64,7 +65,7 @@ export const es: LandingMessages = {
       imageAlt: "Mensajero sosteniendo cajas de envío para entrega a Cuba",
       experience: {
          title: "Llevamos a Cuba la experiencia que se nota",
-         body: "Años de rutas consolidadas, socios locales y comunicación clara significan menos sorpresas. De Miami o Madrid a La Habana y más allá, tu envío lo manejan quienes conocen el corredor.",
+         body: "Años de rutas consolidadas desde la Costa del Golfo de Florida, socios locales y comunicación clara significan menos sorpresas. Desde Sarasota, Bradenton y Tampa hacia La Habana y toda Cuba, tu envío lo manejan quienes conocen el corredor.",
       },
       responsibility: {
          title: "Responsabilidad de punta a punta",
@@ -78,7 +79,7 @@ export const es: LandingMessages = {
    services: {
       kicker: "Nuestros servicios",
       heading: "Todo lo que necesitas para Cuba",
-      sub: "Desde paquetería hasta carga especializada, TramiXpress cubre el corredor completo con plazos claros y sin letras pequeñas.",
+      sub: "Recogida y consolidación con foco en Sarasota, Bradenton y Tampa; cubrimos el corredor completo hacia Cuba con plazos claros y sin letras pequeñas.",
       learnMore: "Saber más",
       cta: "Explorar opciones de envío",
       items: [
@@ -158,6 +159,10 @@ export const es: LandingMessages = {
             q: "¿Cómo rastreo mi paquete?",
             a: "Introduce tu número de rastreo en tramixpress.me para ver hitos en tiempo real: desde consolidación y exportación hasta la entrega final en Cuba.",
          },
+         {
+            q: "¿Desde dónde recogen o consolidan los envíos?",
+            a: "Trabajamos principalmente desde la Costa del Golfo de Florida: Sarasota, Bradenton y Tampa (base en Bradenton). Escríbenos por WhatsApp para coordinar recogida o entrega en depósito según tu zona.",
+         },
       ],
    },
    features: {
@@ -169,18 +174,18 @@ export const es: LandingMessages = {
          "Paquetes y peso por agencia y contenedores recientes con estado y progreso",
       badge: "Nuestras funciones",
       heading: "Herramientas simples, logística seria detrás",
-      body: "Crea envíos, sube documentos y comparte el rastreo con tu familia en Cuba desde un solo lugar: las mismas herramientas que usan miles de clientes cada semana en TramiXpress.",
+      body: "Crea envíos desde Sarasota, Bradenton o Tampa, sube documentos y comparte el rastreo con tu familia en Cuba: las mismas herramientas que usan miles de clientes cada semana en TramiXpress.",
       learnMore: "Saber más",
       tryNow: "Probar ahora",
    },
    location: {
-      headingBefore: "Ubicación precisa e ",
-      headingHighlight: "integración segura",
+      headingBefore: "Rastreo en vivo desde ",
+      headingHighlight: "Florida hasta Cuba",
       headingAfter: "",
-      body: "Sigue cada hito desde escaneos en almacén hasta la última milla en Cuba. Menos momentos de «¿dónde está mi caja?» para ti y tu familia.",
+      body: "Sigue cada hito desde consolidación en la Costa del Golfo (Sarasota, Bradenton, Tampa) hasta la última milla en Cuba. Menos «¿dónde está mi caja?» para ti y tu familia.",
       track: "Rastrear paquete",
       dashboard: "Abrir panel",
-      mapMiamiHub: "Hub Miami",
+      mapOriginHub: "Sarasota · Bradenton · Tampa",
       mapHavana: "Hub La Habana",
       mapSantiagoDelivery: "Entrega Santiago",
       mapShipEnRoute: "Barco en ruta",
@@ -217,16 +222,16 @@ export const es: LandingMessages = {
       ],
    },
    global: {
-      kicker: "Alcance global",
-      heading: "Donde estés tú, Cuba es siempre el destino",
-      body: "Centros de consolidación en Estados Unidos conectan cada provincia de Cuba con rutas conformes, para que tu paquete tome el carril más rápido disponible.",
+      kicker: "Costa del Golfo de Florida",
+      heading: "Sarasota, Bradenton y Tampa hacia toda Cuba",
+      body: "Consolidamos y despachamos principalmente desde la región de Tampa Bay y la Costa del Golfo: Sarasota, Bradenton y Tampa, con rutas conformes a cada provincia cubana para que tu paquete tome el carril más rápido disponible.",
       link: "Por qué nos eligen",
-      mapUsa: "Hubs EE. UU.",
+      mapUsa: "FL: Sarasota · Bradenton · Tampa",
       mapCuba: "Cuba",
    },
    testimonials: {
       heading: "Más de 5.000 clientes envían con TramiXpress",
-      sub: "Únete a miles de familias y negocios que confían en precios claros, manejo asegurado y rastreo en vivo.",
+      sub: "Familias en Sarasota, Bradenton, Tampa y más allá confían en precios claros, manejo asegurado y rastreo en vivo.",
       starsLabel: "5 de 5 estrellas",
       items: [
          {
@@ -265,7 +270,7 @@ export const es: LandingMessages = {
    },
    finalCta: {
       heading: "¿Listo para enviar?",
-      body: "Escríbenos por WhatsApp para cotizaciones y soporte, compara aéreo y marítimo y fija precios transparentes en tramixpress.me: sin spam ni letras pequeñas.",
+      body: "¿En Sarasota, Bradenton o Tampa? Escríbenos por WhatsApp para cotización y recogida; compara aéreo y marítimo y fija precios transparentes en tramixpress.me.",
       ctaAccount: "Contactar por WhatsApp",
       ctaWhatsappAria: "Contactar a TramiXpress por WhatsApp — se abre en una pestaña nueva",
       ctaSales: "Contactar ventas",
@@ -273,14 +278,14 @@ export const es: LandingMessages = {
          "Únete a más de 12.000 suscriptores con calendarios semanales, novedades de aduanas y ofertas exclusivas de TramiXpress.",
    },
    footer: {
-      blurb: "Envíos rápidos y seguros a Cuba: paquetes, alimentos, medicinas y más, con entrega puerta a puerta, seguro y soporte 24/7.",
+      blurb: "Envíos a Cuba desde Sarasota, Bradenton y Tampa: paquetes, alimentos, medicinas y más, con consolidación en la Costa del Golfo, entrega puerta a puerta en Cuba y soporte 24/7.",
       contact: "Contacto",
       hubs: "Hubs",
       siteLink: "tramixpress.me",
       email: "tramixpress2.llc@gmail.com",
       phone: "(941) 278-2357",
       address: "1201 9th ST W, Bradenton, FL",
-      hub1: "Consolidación en Estados Unidos",
+      hub1: "Sarasota, Bradenton y Tampa, FL",
       hub2: "Puerta a puerta en toda Cuba",
       hub3: "Salidas aéreas y marítimas",
       rights: "Todos los derechos reservados.",
@@ -290,7 +295,7 @@ export const es: LandingMessages = {
       meta: {
          title: "Rastrea tu envío | TramiXpress",
          description:
-            "Consulta tu envío por factura, HBL o número de orden. Los resultados se muestran en esta página.",
+            "Consulta tu envío por factura, HBL o número de orden. Servicio con operaciones en Sarasota, Bradenton y Tampa; resultados en esta página.",
       },
       heading: "Rastrea tu envío",
       sub: "Introduce factura, HBL o número de orden. Solo números se interpretan como ID de orden; otros códigos usan rastreo (mín. 3 caracteres; sufijo CTE opcional).",

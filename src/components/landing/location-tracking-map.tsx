@@ -16,7 +16,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export interface LocationTrackingMapLabels {
-   miamiHub: string;
+   originHub: string;
    havana: string;
    santiago: string;
    shipEnRoute: string;
@@ -34,17 +34,19 @@ export interface LocationTrackingMapLabels {
    };
 }
 
-const MIAMI_PORT: [number, number] = [-80.165, 25.775];
+/** Bradenton area — represents Sarasota, Bradenton & Tampa Gulf Coast pickups. */
+const FL_GULF_ORIGIN: [number, number] = [-82.575, 27.499];
 const HAVANA_PORT: [number, number] = [-82.292, 23.168];
 const HAVANA_DELIVERY: [number, number] = [-82.3666, 23.1136];
 const SANTIAGO_DELIVERY: [number, number] = [-75.8301, 20.0247];
 const GREEN_DASH: [number, number] = [2, 2];
 
 const SEA_ROUTE: [number, number][] = [
-   MIAMI_PORT,
-   [-80.55, 25.42],
-   [-81.05, 24.95],
-   [-81.55, 24.45],
+   FL_GULF_ORIGIN,
+   [-82.45, 26.85],
+   [-82.25, 26.1],
+   [-82.05, 25.35],
+   [-81.75, 24.75],
    [-82.02, 23.85],
    [-82.22, 23.48],
    HAVANA_PORT,
@@ -400,7 +402,7 @@ function FitRouteViewport(): null {
       for (const line of ALL_GREEN_ROUTES) {
          extendLine(line);
       }
-      bounds.extend(MIAMI_PORT);
+      bounds.extend(FL_GULF_ORIGIN);
       bounds.extend(HAVANA_PORT);
       bounds.extend(HAVANA_DELIVERY);
       bounds.extend(SANTIAGO_DELIVERY);
@@ -458,16 +460,16 @@ export function LocationTrackingMap({ labels }: { labels: LocationTrackingMapLab
                </MapMarker>
             ))}
 
-            <MapMarker latitude={MIAMI_PORT[1]} longitude={MIAMI_PORT[0]}>
+            <MapMarker latitude={FL_GULF_ORIGIN[1]} longitude={FL_GULF_ORIGIN[0]}>
                <MarkerContent className="flex flex-col items-center">
                   <CircleMarker bgClass="bg-emerald-500">
                      <Ship aria-hidden className="size-3 text-white" strokeWidth={2} />
                   </CircleMarker>
                   <MarkerLabel className="text-[9px] font-semibold text-white drop-shadow-md" position="top">
-                     {labels.miamiHub}
+                     {labels.originHub}
                   </MarkerLabel>
                   <MarkerTooltip>
-                     <span className="text-white">{labels.miamiHub}</span>
+                     <span className="text-white">{labels.originHub}</span>
                   </MarkerTooltip>
                </MarkerContent>
             </MapMarker>

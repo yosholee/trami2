@@ -142,7 +142,7 @@ export interface LandingMessages {
       body: string;
       track: string;
       dashboard: string;
-      mapMiamiHub: string;
+      mapOriginHub: string;
       mapHavana: string;
       mapSantiagoDelivery: string;
       mapShipEnRoute: string;

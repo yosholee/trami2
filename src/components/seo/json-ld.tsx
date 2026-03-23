@@ -18,6 +18,19 @@ function buildJsonLd(locale: Locale): Record<string, unknown> {
         url: siteUrl,
         description: m.meta.description,
         logo: `${siteUrl}/favicon.ico`,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "1201 9th ST W",
+          addressLocality: "Bradenton",
+          addressRegion: "FL",
+          addressCountry: "US",
+        },
+        areaServed: [
+          { "@type": "City", name: "Sarasota", containedInPlace: { "@type": "State", name: "Florida" } },
+          { "@type": "City", name: "Bradenton", containedInPlace: { "@type": "State", name: "Florida" } },
+          { "@type": "City", name: "Tampa", containedInPlace: { "@type": "State", name: "Florida" } },
+          { "@type": "Country", name: "Cuba" },
+        ],
       },
       {
         "@type": "WebSite",
@@ -35,11 +48,14 @@ function buildJsonLd(locale: Locale): Record<string, unknown> {
         description: m.meta.description,
         url: siteUrl,
         provider: { "@id": `${siteUrl}/#organization` },
-        areaServed: {
-          "@type": "Country",
-          name: "Cuba",
-        },
-        serviceType: "International parcel delivery and door-to-door logistics",
+        areaServed: [
+          { "@type": "City", name: "Sarasota", containedInPlace: { "@type": "State", name: "Florida" } },
+          { "@type": "City", name: "Bradenton", containedInPlace: { "@type": "State", name: "Florida" } },
+          { "@type": "City", name: "Tampa", containedInPlace: { "@type": "State", name: "Florida" } },
+          { "@type": "Country", name: "Cuba" },
+        ],
+        serviceType:
+          "International parcel delivery and door-to-door logistics from Florida Gulf Coast (Sarasota, Bradenton, Tampa) to Cuba",
       },
       {
         "@type": "FAQPage",
