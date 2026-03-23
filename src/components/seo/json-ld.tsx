@@ -17,7 +17,7 @@ function buildJsonLd(locale: Locale): Record<string, unknown> {
         name: siteName,
         url: siteUrl,
         description: m.meta.description,
-        logo: `${siteUrl}/favicon.ico`,
+        logo: `${siteUrl}/android-chrome-512x512.png`,
         address: {
           "@type": "PostalAddress",
           streetAddress: "1201 9th ST W",
