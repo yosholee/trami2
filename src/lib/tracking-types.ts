@@ -29,6 +29,8 @@ export interface TrackingParcel {
 
 export interface TrackingInvoice {
    invoiceId?: string | number;
+   /** Numeric order id when upstream omits `invoiceId` */
+   order_id?: string | number;
    agency?: string;
    province?: string;
    city?: string;

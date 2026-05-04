@@ -3,6 +3,7 @@ import type { ReactElement, ReactNode } from "react";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { LandingMessages } from "@/i18n/types";
+import { buildParcelTimeline } from "@/lib/tracking-event-merge";
 import type { TrackingInvoice, TrackingParcel, TrackingTimelineEvent } from "@/lib/tracking-types";
 import { cn } from "@/lib/utils";
 
@@ -60,6 +61,13 @@ function formatTimelineTimestamp(iso: string | null): string {
       return iso;
    }
    return d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+}
+
+/** Strip tags for timeline copy; preserves `<br>` as line breaks. */
+function timelineDescriptionPlain(html: string): string {
+   const withBreaks = html.replace(/<br\s*\/?>/gi, "\n");
+   const stripped = withBreaks.replace(/<[^>]*>/g, "");
+   return stripped.replace(/\u00a0/g, " ").trim();
 }
 
 function isTerminalDelivery(ev: TrackingTimelineEvent): boolean {
@@ -177,6 +185,21 @@ function VerticalTimeline({
                            >
                               {ev.statusName}
                            </p>
+                           {(() => {
+                              const descRaw = ev.statusDescription;
+                              if (descRaw == null || normalizeTimelineText(descRaw) === "") {
+                                 return null;
+                              }
+                              const plain = timelineDescriptionPlain(descRaw);
+                              if (plain === "" || normalizeTimelineText(plain) === normalizeTimelineText(ev.statusName)) {
+                                 return null;
+                              }
+                              return (
+                                 <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+                                    {plain}
+                                 </p>
+                              );
+                           })()}
                            {ev.location && !isRedundantTimelineLocation(ev.statusName, ev.location) ? (
                               <p className="mt-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">{ev.location}</p>
                            ) : null}
@@ -201,7 +224,7 @@ function ShipmentSummaryHeader({
    labels: Pick<LandingMessages["tracking"], "fieldInvoice" | "fieldAgency" | "fieldProvince" | "fieldCity">;
 }): ReactElement | null {
    const agency = scalarString(invoice.agency);
-   const inv = scalarString(invoice.invoiceId);
+   const inv = scalarString(invoice.invoiceId ?? invoice.order_id);
    const prov = scalarString(invoice.province);
    const city = scalarString(invoice.city);
    const locationLine = [prov, city].filter(Boolean).join(" — ");
@@ -290,6 +313,13 @@ export function TrackingDetails({
       }
    };
    pick("invoiceId", labels.fieldInvoice);
+   const hasInvoiceRow = rows.some((r) => r.label === labels.fieldInvoice);
+   if (!hasInvoiceRow) {
+      const oid = scalarString(invoice.order_id);
+      if (oid) {
+         rows.push({ label: labels.fieldInvoice, value: oid });
+      }
+   }
    pick("agency", labels.fieldAgency);
    pick("province", labels.fieldProvince);
    pick("city", labels.fieldCity);
@@ -342,7 +372,9 @@ export function TrackingDetails({
                         const extras = parcelBodyWithoutHistorial(p);
                         const hasExtras = Object.keys(extras).length > 0;
                         const parcelKey = `${hbl ?? (p.id != null ? String(p.id) : "parcel")}-${i}`;
-                        const hasTimeline = Array.isArray(p.timeline) && p.timeline.length > 0;
+                        const displayTimeline: TrackingTimelineEvent[] =
+                           Array.isArray(p.timeline) && p.timeline.length > 0 ? p.timeline : buildParcelTimeline(p as Record<string, unknown>);
+                        const hasTimeline = displayTimeline.length > 0;
 
                         return (
                            <li key={parcelKey} className="border-b border-zinc-200/90 last:border-b-0 dark:border-white/8">
@@ -382,7 +414,7 @@ export function TrackingDetails({
                                  {hasTimeline ? (
                                     <div className="min-w-0 bg-zinc-50/70 px-5 py-6 sm:px-8 sm:py-8 dark:bg-zinc-900/45">
                                        <VerticalTimeline
-                                          events={p.timeline!}
+                                          events={displayTimeline}
                                           heading={labels.timelineHeading}
                                           terminalLabel={labels.terminalEvent}
                                        />

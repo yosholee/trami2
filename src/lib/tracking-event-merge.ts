@@ -67,28 +67,82 @@ function safeToISOString(dateValue: string | Date | null | undefined): string | 
 }
 
 interface NewApiParcelEvent {
+   /** Primary time field from current upstream API */
+   timestamp?: string | Date | null;
    updatedAt?: string | Date | null;
+   statusCode?: string | null;
+   statusName?: string | null;
+   statusDescription?: string | null;
    locationId?: number | string | null;
    location?: string | null;
+   updateMethod?: string | null;
+   userName?: string | null;
+   source?: string | null;
+}
+
+function parseParcelLocationId(locIdRaw: number | string | null | undefined): number | null {
+   if (locIdRaw === null || locIdRaw === undefined || locIdRaw === "") {
+      return null;
+   }
+   const locationId = Number(locIdRaw);
+   return typeof locationId === "number" && Number.isFinite(locationId) ? locationId : null;
 }
 
 function mapNewEventToTrackingEvent(ev: NewApiParcelEvent): TrackingTimelineEvent {
+   const ts = safeToISOString(ev.timestamp ?? ev.updatedAt ?? undefined);
+   const codeRaw =
+      typeof ev.statusCode === "string" ? ev.statusCode.trim() : ev.statusCode != null ? String(ev.statusCode).trim() : "";
+
+   /** Rich unified events (`timestamp` + `statusCode`) from upstream */
+   if (codeRaw !== "") {
+      const nameRaw =
+         typeof ev.statusName === "string" ? ev.statusName.trim() : ev.statusName != null ? String(ev.statusName).trim() : "";
+      const descRaw = ev.statusDescription;
+      const statusDescription =
+         descRaw == null || descRaw === ""
+            ? null
+            : typeof descRaw === "string"
+               ? descRaw
+               : String(descRaw);
+      const locRaw = ev.location;
+      const location =
+         locRaw == null || locRaw === "" ? null : typeof locRaw === "string" ? locRaw.trim() || null : String(locRaw);
+      const um = ev.updateMethod != null ? String(ev.updateMethod) : "SYSTEM";
+      const umRaw = typeof ev.userName === "string" ? ev.userName.trim() : ev.userName != null ? String(ev.userName) : null;
+      const userName = umRaw !== "" ? umRaw : null;
+      const src = ev.source === "HM" ? "HM" : "NEW";
+
+      return {
+         timestamp: ts,
+         statusCode: codeRaw,
+         statusName: nameRaw !== "" ? nameRaw : codeRaw,
+         statusDescription,
+         location,
+         locationId: parseParcelLocationId(ev.locationId),
+         updateMethod: um,
+         userName,
+         source: src,
+      };
+   }
+
+   /** Legacy: warehouse-style rows with `updatedAt` + `location` only */
    const locIdRaw = ev.locationId;
-   const locationId =
-      locIdRaw === null || locIdRaw === undefined || locIdRaw === ""
-         ? null
-         : Number(locIdRaw);
-   const ts = safeToISOString(ev.updatedAt ?? undefined);
+   const locationId = parseParcelLocationId(locIdRaw);
    const idPart =
       locIdRaw !== undefined && locIdRaw !== null && String(locIdRaw) !== "" ? String(locIdRaw) : "UNKNOWN";
 
    return {
       timestamp: ts,
       statusCode: `LOCATION_${idPart}`,
-      statusName: ev.location ?? "Unknown",
+      statusName:
+         typeof ev.location === "string" && ev.location.trim() !== ""
+            ? ev.location.trim()
+            : ev.location != null
+               ? String(ev.location)
+               : "Unknown",
       statusDescription: null,
-      location: ev.location ?? null,
-      locationId: typeof locationId === "number" && Number.isFinite(locationId) ? locationId : null,
+      location: typeof ev.location === "string" ? ev.location : ev.location != null ? String(ev.location) : null,
+      locationId: locationId ?? null,
       updateMethod: "SYSTEM",
       userName: null,
       source: "NEW",
@@ -229,4 +283,23 @@ export function mergeAndNormalizeEvents(
    }
 
    return merged;
+}
+
+const PARCEL_EVENT_KEYS = ["events", "trackingEvents", "history", "statusHistory", "updates"] as const;
+
+/** Event arrays keyed on parcel objects (aligned with server lookup enrichment). */
+export function eventsArrayFromParcel(parcel: Record<string, unknown>): unknown[] {
+   for (const key of PARCEL_EVENT_KEYS) {
+      const v = parcel[key];
+      if (Array.isArray(v)) {
+         return v;
+      }
+   }
+   return [];
+}
+
+/** Normalize `parcel.events` (+ optional `parcel.historial`) when `parcel.timeline` is missing (e.g. direct API fetch). */
+export function buildParcelTimeline(parcel: Record<string, unknown>): TrackingTimelineEvent[] {
+   const historial = Array.isArray(parcel.historial) ? parcel.historial : [];
+   return mergeAndNormalizeEvents(eventsArrayFromParcel(parcel), { historial });
 }

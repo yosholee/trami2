@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, type FormEvent, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +24,9 @@ function formatTrackingError(
    }
    if (error.message === TRACKING_ERROR_NOT_CONFIGURED) {
       return labels.notConfigured;
+   }
+   if (error.message.includes("429")) {
+      return labels.rateLimited;
    }
    return error.message || labels.errorGeneric;
 }
@@ -56,7 +59,9 @@ export function TrackingSearchSection({
 
    const { data, isLoading, isError, error, isFetching } = useFetchByInvoiceOrHBL(submittedTerm);
 
-   function onSubmit(e: FormEvent<HTMLFormElement>): void {
+
+   console.log(data);
+   function onSubmit(e: React.SubmitEvent<HTMLFormElement>): void {
       e.preventDefault();
       const raw = new FormData(e.currentTarget).get("search");
       setSubmittedTerm(String(raw ?? "").trim());

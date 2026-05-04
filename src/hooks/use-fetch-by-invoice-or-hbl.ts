@@ -3,7 +3,6 @@ import { useMemo } from "react";
 
 import type { TrackingInvoice } from "@/lib/tracking-types";
 
-/** Stable code from GET /api/tracking/lookup when rate limited. */
 export const TRACKING_ERROR_RATE_LIMITED = "rate_limited";
 export const TRACKING_ERROR_NOT_CONFIGURED = "not_configured";
 
@@ -35,14 +34,27 @@ export function parseTrackingSearchTerm(raw: string): ParsedTrackingQuery | null
    return { kind: "tracking", value: stripped };
 }
 
-function buildLookupUrl(parsed: ParsedTrackingQuery): string {
-   const p = new URLSearchParams();
-   if (parsed.kind === "order_id") {
-      p.set("order_id", parsed.value);
-   } else {
-      p.set("tracking", parsed.value);
+function normalizeTrackingOrigin(raw: string): string {
+   const t = raw.trim();
+   const withScheme = /^https?:\/\//i.test(t) ? t : `https://${t}`;
+   return new URL(withScheme).origin;
+}
+
+/** Client-side upstream base (`NEXT_PUBLIC_TRACKING_NEW_URL` or `https://api.ctenvios.com`). */
+function trackingLookupOrigin(): string {
+   const raw = process.env.NEXT_PUBLIC_TRACKING_NEW_URL?.trim();
+   if (raw) {
+      return normalizeTrackingOrigin(raw);
    }
-   return `/api/tracking/lookup?${p.toString()}`;
+   return "https://api.ctenvios.com";
+}
+
+function buildUpstreamLookupUrl(parsed: ParsedTrackingQuery): string {
+   const origin = trackingLookupOrigin();
+   const qs = new URLSearchParams(
+      parsed.kind === "order_id" ? { order_id: parsed.value } : { tracking: parsed.value },
+   );
+   return `${origin}/api/v1/tracking/lookup/${parsed.value}`;
 }
 
 function readErrorCode(data: unknown): string | null {
@@ -54,7 +66,15 @@ function readErrorCode(data: unknown): string | null {
 }
 
 async function fetchInvoice(parsed: ParsedTrackingQuery): Promise<TrackingInvoice> {
-   const res = await fetch(buildLookupUrl(parsed));
+   const headers = new Headers();
+   headers.set("Accept", "application/json");
+   const apiKey = process.env.NEXT_PUBLIC_TRACKING_API_KEY?.trim();
+   if (apiKey) {
+      headers.set("Authorization", `Bearer ${apiKey}`);
+   }
+
+   const res = await fetch(buildUpstreamLookupUrl(parsed), { headers, cache: "no-store" });
+
    let data: unknown;
    try {
       data = await res.json();
@@ -77,13 +97,11 @@ async function fetchInvoice(parsed: ParsedTrackingQuery): Promise<TrackingInvoic
    return data as TrackingInvoice;
 }
 
-export function useFetchByInvoiceOrHBL(searchTerm: string): ReturnType<
-   typeof useQuery<TrackingInvoice, Error>
-> {
+export function useFetchByInvoiceOrHBL(searchTerm: string): ReturnType<typeof useQuery<TrackingInvoice, Error>> {
    const parsed = useMemo(() => parseTrackingSearchTerm(searchTerm), [searchTerm]);
 
    return useQuery({
-      queryKey: ["tracking-lookup", parsed?.kind, parsed?.value] as const,
+      queryKey: ["tracking-lookup-upstream", trackingLookupOrigin(), parsed?.kind, parsed?.value] as const,
       queryFn: () => {
          if (!parsed) {
             throw new Error("No query");
@@ -91,5 +109,6 @@ export function useFetchByInvoiceOrHBL(searchTerm: string): ReturnType<
          return fetchInvoice(parsed);
       },
       enabled: parsed !== null,
+      staleTime: 1000 * 60 * 5,
    });
 }
