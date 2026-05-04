@@ -4,6 +4,7 @@ import type { ReactElement, ReactNode } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { LandingMessages } from "@/i18n/types";
 import { buildParcelTimeline } from "@/lib/tracking-event-merge";
+import { timelineHtmlToPlain } from "@/lib/tracking-html-plain";
 import type { TrackingInvoice, TrackingParcel, TrackingTimelineEvent } from "@/lib/tracking-types";
 import { cn } from "@/lib/utils";
 
@@ -61,13 +62,6 @@ function formatTimelineTimestamp(iso: string | null): string {
       return iso;
    }
    return d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
-}
-
-/** Strip tags for timeline copy; preserves `<br>` as line breaks. */
-function timelineDescriptionPlain(html: string): string {
-   const withBreaks = html.replace(/<br\s*\/?>/gi, "\n");
-   const stripped = withBreaks.replace(/<[^>]*>/g, "");
-   return stripped.replace(/\u00a0/g, " ").trim();
 }
 
 function isTerminalDelivery(ev: TrackingTimelineEvent): boolean {
@@ -190,7 +184,7 @@ function VerticalTimeline({
                               if (descRaw == null || normalizeTimelineText(descRaw) === "") {
                                  return null;
                               }
-                              const plain = timelineDescriptionPlain(descRaw);
+                              const plain = timelineHtmlToPlain(descRaw);
                               if (plain === "" || normalizeTimelineText(plain) === normalizeTimelineText(ev.statusName)) {
                                  return null;
                               }
@@ -282,7 +276,7 @@ function historialLine(entry: unknown): string {
       for (const key of ["status", "estado", "description", "descripcion", "message", "mensaje"]) {
          const v = o[key];
          if (typeof v === "string" && v.trim()) {
-            return v.trim();
+            return timelineHtmlToPlain(v.trim());
          }
       }
    }

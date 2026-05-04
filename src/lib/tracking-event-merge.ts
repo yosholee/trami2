@@ -2,6 +2,7 @@
  * Merges parcel events (new/base API) with HM historial into a normalized timeline.
  */
 
+import { timelineHtmlToPlain } from "@/lib/tracking-html-plain";
 import type { TrackingTimelineEvent } from "@/lib/tracking-types";
 
 const TYPO_CORRECTIONS = {
@@ -38,19 +39,19 @@ function normalizeHmTipoKey(tipo: string | undefined): string {
       .replace(/\s+/g, "");
 }
 
-function extractLocationFromDetalle(detalle: string | null | undefined): string | null {
-   if (detalle == null || detalle === "") {
+function extractLocationFromDetalle(detallePlain: string | null | undefined): string | null {
+   if (detallePlain == null || detallePlain === "") {
       return null;
    }
    const warehouseRegex = /almac[eé]n\s+([^\.]+)/i;
-   const warehouseMatch = detalle.match(warehouseRegex);
+   const warehouseMatch = detallePlain.match(warehouseRegex);
    if (warehouseMatch?.[1]) {
-      return warehouseMatch[1].trim();
+      return timelineHtmlToPlain(warehouseMatch[1].trim()) || null;
    }
    const provinceRegex = /provincia\s+([^\.]+)/i;
-   const provinceMatch = detalle.match(provinceRegex);
+   const provinceMatch = detallePlain.match(provinceRegex);
    if (provinceMatch?.[1]) {
-      return provinceMatch[1].trim();
+      return timelineHtmlToPlain(provinceMatch[1].trim()) || null;
    }
    return null;
 }
@@ -97,16 +98,20 @@ function mapNewEventToTrackingEvent(ev: NewApiParcelEvent): TrackingTimelineEven
    if (codeRaw !== "") {
       const nameRaw =
          typeof ev.statusName === "string" ? ev.statusName.trim() : ev.statusName != null ? String(ev.statusName).trim() : "";
+      const titlePlain = timelineHtmlToPlain(nameRaw !== "" ? nameRaw : codeRaw);
       const descRaw = ev.statusDescription;
-      const statusDescription =
+      const rawDescription =
          descRaw == null || descRaw === ""
-            ? null
+            ? ""
             : typeof descRaw === "string"
                ? descRaw
                : String(descRaw);
+      const statusDescription = rawDescription === "" ? null : timelineHtmlToPlain(rawDescription) || null;
       const locRaw = ev.location;
+      const locationRough =
+         locRaw == null || locRaw === "" ? "" : typeof locRaw === "string" ? locRaw.trim() : String(locRaw).trim();
       const location =
-         locRaw == null || locRaw === "" ? null : typeof locRaw === "string" ? locRaw.trim() || null : String(locRaw);
+         locationRough === "" ? null : timelineHtmlToPlain(locationRough) || locationRough.trim() || null;
       const um = ev.updateMethod != null ? String(ev.updateMethod) : "SYSTEM";
       const umRaw = typeof ev.userName === "string" ? ev.userName.trim() : ev.userName != null ? String(ev.userName) : null;
       const userName = umRaw !== "" ? umRaw : null;
@@ -115,7 +120,7 @@ function mapNewEventToTrackingEvent(ev: NewApiParcelEvent): TrackingTimelineEven
       return {
          timestamp: ts,
          statusCode: codeRaw,
-         statusName: nameRaw !== "" ? nameRaw : codeRaw,
+         statusName: nameRaw !== "" ? titlePlain || nameRaw : codeRaw,
          statusDescription,
          location,
          locationId: parseParcelLocationId(ev.locationId),
@@ -131,17 +136,21 @@ function mapNewEventToTrackingEvent(ev: NewApiParcelEvent): TrackingTimelineEven
    const idPart =
       locIdRaw !== undefined && locIdRaw !== null && String(locIdRaw) !== "" ? String(locIdRaw) : "UNKNOWN";
 
+   const locRough =
+      typeof ev.location === "string" && ev.location.trim() !== ""
+         ? ev.location.trim()
+         : ev.location != null
+            ? String(ev.location).trim()
+            : "";
+   const locationPlain =
+      locRough === "" ? "Unknown" : timelineHtmlToPlain(locRough) || locRough.trim() || "Unknown";
+
    return {
       timestamp: ts,
       statusCode: `LOCATION_${idPart}`,
-      statusName:
-         typeof ev.location === "string" && ev.location.trim() !== ""
-            ? ev.location.trim()
-            : ev.location != null
-               ? String(ev.location)
-               : "Unknown",
+      statusName: locationPlain,
       statusDescription: null,
-      location: typeof ev.location === "string" ? ev.location : ev.location != null ? String(ev.location) : null,
+      location: locRough === "" ? null : timelineHtmlToPlain(locRough).trim() || locRough.trim() || null,
       locationId: locationId ?? null,
       updateMethod: "SYSTEM",
       userName: null,
@@ -159,9 +168,11 @@ interface HmHistoryRow {
 }
 
 function mapHmHistoryToTrackingEvent(hm: HmHistoryRow): TrackingTimelineEvent {
-   const eventoRaw = fixKnownTypos((hm.evento ?? "").trim());
-   const evento = eventoRaw ?? "";
-   const detalle = fixKnownTypos(hm.detalle ?? "") ?? "";
+   const eventoPlain = timelineHtmlToPlain(String(hm.evento ?? "").trim());
+   const detallePlain = timelineHtmlToPlain(String(hm.detalle ?? "").trim());
+   const eventoRaw = fixKnownTypos(eventoPlain) ?? "";
+   const evento = eventoRaw;
+   const detalle = fixKnownTypos(detallePlain) ?? "";
 
    const tipoKey = normalizeHmTipoKey(hm.tipo ?? undefined);
    const mapped =
