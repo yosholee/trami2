@@ -101,7 +101,7 @@ export function TrackingSearchSection({
          ) : null}
 
          {data != null ? (
-            <div className="w-full min-w-0">
+            <div className="mx-auto w-full max-w-5xl min-w-0">
                <TrackingDetails invoice={data} labels={labels} />
             </div>
          ) : null}

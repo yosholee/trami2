@@ -1,7 +1,7 @@
-import { Check, FileText, MapPin, Truck } from "lucide-react";
-import type { ReactElement, ReactNode } from "react";
+import { Check, FileText, MapPin, Package, Truck } from "lucide-react";
+import type { ReactElement } from "react";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import type { LandingMessages } from "@/i18n/types";
 import { buildParcelTimeline } from "@/lib/tracking-event-merge";
 import { timelineHtmlToPlain } from "@/lib/tracking-html-plain";
@@ -110,11 +110,89 @@ function isRedundantTimelineLocation(statusName: string, location: string | null
    return false;
 }
 
-function DetailRow({ label, children }: { label: string; children: ReactNode }): ReactElement {
+/** Left column: agency, invoice pill, route, hero HBL, category / meta (matches reference layout). */
+function ParcelSummaryPanel({
+   invoice,
+   parcel,
+   labels,
+   parcelPosition,
+}: {
+   invoice: TrackingInvoice;
+   parcel: TrackingParcel;
+   labels: Pick<LandingMessages["tracking"], "fieldInvoice" | "fieldHbl" | "fieldDescription" | "fieldWeight" | "packageDetails">;
+   parcelPosition: [number, number] | null;
+}): ReactElement {
+   const agency = scalarString(invoice.agency);
+   const inv = scalarString(invoice.invoiceId ?? invoice.order_id);
+   const prov = scalarString(invoice.province);
+   const city = scalarString(invoice.city);
+   const routeLine = [prov, city].filter(Boolean).join(" - ");
+   const hbl = scalarString(parcel.hbl);
+   const description = scalarString(parcel.description);
+   const weight = scalarString(parcel.weight);
+   const extras = parcelBodyWithoutHistorial(parcel);
+   const hasExtras = Object.keys(extras).length > 0;
+
    return (
-      <div className="grid grid-cols-1 gap-1 border-b border-zinc-200/90 py-4 last:border-b-0 dark:border-white/8 sm:grid-cols-[minmax(0,10rem)_1fr] sm:items-start sm:gap-8">
-         <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 dark:text-zinc-400">{label}</dt>
-         <dd className="min-w-0 text-[15px] leading-relaxed text-zinc-900 dark:text-zinc-100">{children}</dd>
+      <div className="flex min-w-0 flex-col gap-6 p-6 sm:p-8 lg:pr-10">
+         {parcelPosition ? (
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-800 dark:text-[#facc15]">
+               {labels.packageDetails}{" "}
+               <span className="tabular-nums text-zinc-600 dark:text-zinc-400">({parcelPosition[0]} / {parcelPosition[1]})</span>
+            </p>
+         ) : null}
+
+         <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="min-w-0 space-y-4">
+               {agency ? (
+                  <p className="text-lg font-bold uppercase leading-tight tracking-wide text-zinc-950 dark:text-white sm:text-xl">
+                     {agency}
+                  </p>
+               ) : null}
+               <div className="flex flex-wrap items-center gap-2">
+                  {inv ? (
+                     <span
+                        className="inline-flex items-center gap-2 rounded-lg border border-zinc-200/90 bg-white px-3 py-2 text-sm font-semibold tabular-nums text-zinc-900 shadow-sm dark:border-white/15 dark:bg-zinc-900/70 dark:text-zinc-50"
+                        title={labels.fieldInvoice}
+                     >
+                        <FileText className="size-4 shrink-0 text-amber-600 dark:text-[#facc15]" aria-hidden />
+                        <span>{inv}</span>
+                     </span>
+                  ) : null}
+               </div>
+               {routeLine ? (
+                  <p className="max-w-lg text-[15px] font-medium leading-snug text-zinc-500 dark:text-zinc-400">{routeLine}</p>
+               ) : null}
+            </div>
+         </div>
+
+         {hbl ? (
+            <div>
+               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">{labels.fieldHbl}</p>
+               <p className="mt-1.5 font-mono text-[1.375rem] font-bold leading-snug tracking-tight text-zinc-950 break-all dark:text-white sm:text-2xl">
+                  {hbl}
+               </p>
+            </div>
+         ) : null}
+
+         {description || weight || hasExtras ? (
+            <div className="space-y-2 border-t border-zinc-100 pt-6 dark:border-white/10">
+               {description ? (
+                  <p className="text-base font-medium leading-relaxed text-zinc-600 dark:text-zinc-300">{description}</p>
+               ) : null}
+               {weight ? (
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                     <span className="font-semibold text-zinc-600 dark:text-zinc-400">{labels.fieldWeight}:</span>{" "}
+                     <span className="tabular-nums">{weight}</span>
+                  </p>
+               ) : null}
+               {hasExtras ? (
+                  <pre className="mt-4 max-h-36 overflow-auto rounded-lg border border-zinc-200/80 bg-zinc-950/[0.02] p-3 font-mono text-[11px] leading-relaxed text-zinc-700 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300">
+                     {JSON.stringify(extras, null, 2)}
+                  </pre>
+               ) : null}
+            </div>
+         ) : null}
       </div>
    );
 }
@@ -130,51 +208,52 @@ function VerticalTimeline({
 }): ReactElement {
    const sorted = sortTimelineNewestFirst(events);
 
+   const trackPx = "w-6 shrink-0";
+
    return (
-      <div className="min-w-0">
-         <h3 className="border-b border-zinc-200/90 pb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:border-white/8 dark:text-zinc-400">
-            {heading}
-         </h3>
-         <div className="relative mt-8">
-            {/* Line through horizontal center of w-5 (20px) gutter; dots are centered in that column */}
-            <div
-               className="pointer-events-none absolute bottom-4 left-[10px] top-4 w-px -translate-x-1/2 bg-zinc-300 dark:bg-zinc-600"
-               aria-hidden
-            />
-            <ul className="relative">
+      <div className="min-w-0 border-t border-zinc-100 bg-zinc-50/40 p-6 sm:border-t-0 sm:bg-transparent lg:border-l lg:border-zinc-100 lg:bg-zinc-50/25 xl:px-10 dark:border-white/10 dark:bg-zinc-900/35 dark:sm:bg-transparent dark:lg:bg-zinc-900/35">
+         <div className="mb-10 flex items-center gap-3">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zic-400">{heading}</h3>
+            <span className="h-px flex-1 bg-zinc-200 dark:bg-white/15" aria-hidden />
+         </div>
+         <div className="relative">
+            {sorted.length > 1 ? (
+               <div
+                  aria-hidden
+                  className="pointer-events-none absolute bottom-[calc(22px+-1px)] left-3 top-[calc(11px+-1px)] z-0 w-[1px] -translate-x-1/2 bg-zinc-200 dark:bg-zinc-600"
+               />
+            ) : null}
+            <ul className="relative z-[1] space-y-10">
                {sorted.map((ev, idx) => {
                   const terminal = isTerminalDelivery(ev);
                   const showTerminalBadge = terminal && idx === 0;
                   const key = `${ev.timestamp ?? "x"}-${ev.statusCode}-${idx}`;
 
                   return (
-                     <li key={key} className="flex gap-3.5 pb-10 last:pb-3 sm:gap-4">
-                        <div className="relative z-10 flex w-5 shrink-0 justify-center pt-1" aria-hidden>
-                           <div
+                     <li key={key} className="relative grid grid-cols-[theme(spacing.6)_minmax(0,1fr)] items-start gap-x-5">
+                        <div className={`relative flex ${trackPx} justify-center`}>
+                           <span
                               className={cn(
-                                 "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white",
+                                 "relative z-[2] mt-px flex size-[22px] shrink-0 items-center justify-center rounded-full border-2 bg-white shadow-sm dark:bg-zinc-950",
                                  terminal
-                                    ? "bg-emerald-500 dark:bg-emerald-500"
-                                    : "bg-sky-500 dark:bg-sky-500",
+                                    ? "border-emerald-500 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400"
+                                    : "border-[#eab308] text-[#ca8a04] dark:border-[#facc15] dark:text-[#fde047]",
                               )}
+                              aria-hidden
                            >
-                              {terminal ? (
-                                 <Truck className="h-2.5 w-2.5" strokeWidth={2.5} />
-                              ) : (
-                                 <Check className="h-2.5 w-2.5" strokeWidth={3} />
-                              )}
-                           </div>
+                              {terminal ? <Truck className="size-3.5" strokeWidth={2.25} /> : <Check className="size-3.5" strokeWidth={2.75} />}
+                           </span>
                         </div>
-                        <div className="min-w-0 flex-1 pt-0.5">
+                        <div className="min-w-0 pb-1 pt-px">
                            {showTerminalBadge ? (
-                              <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-600 dark:text-emerald-400">
+                              <p className="mb-1.5 inline-flex rounded-full bg-emerald-500/12 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300">
                                  {terminalLabel}
                               </p>
                            ) : null}
                            <p
                               className={cn(
-                                 "text-[15px] font-semibold leading-snug tracking-tight",
-                                 terminal ? "text-emerald-700 dark:text-emerald-400" : "text-zinc-950 dark:text-white",
+                                 "text-[15px] font-semibold leading-snug text-zinc-950 dark:text-white",
+                                 terminal && "text-emerald-900 dark:text-emerald-300",
                               )}
                            >
                               {ev.statusName}
@@ -185,19 +264,25 @@ function VerticalTimeline({
                                  return null;
                               }
                               const plain = timelineHtmlToPlain(descRaw);
-                              if (plain === "" || normalizeTimelineText(plain) === normalizeTimelineText(ev.statusName)) {
+                              if (
+                                 plain === "" ||
+                                 normalizeTimelineText(plain) === normalizeTimelineText(ev.statusName)
+                              ) {
                                  return null;
                               }
                               return (
-                                 <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+                                 <p className="mt-2 whitespace-pre-line text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">
                                     {plain}
                                  </p>
                               );
                            })()}
                            {ev.location && !isRedundantTimelineLocation(ev.statusName, ev.location) ? (
-                              <p className="mt-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">{ev.location}</p>
+                              <p className="mt-2 flex items-start gap-1.5 text-[13px] font-medium text-zinc-700 dark:text-zinc-300">
+                                 <MapPin className="mt-0.5 size-3.5 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
+                                 <span>{ev.location}</span>
+                              </p>
                            ) : null}
-                           <p className="mt-1 text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
+                           <p className="mt-2.5 text-sm font-semibold tabular-nums tracking-wide text-amber-800 dark:text-[#facc15]">
                               {formatTimelineTimestamp(ev.timestamp)}
                            </p>
                         </div>
@@ -205,66 +290,6 @@ function VerticalTimeline({
                   );
                })}
             </ul>
-         </div>
-      </div>
-   );
-}
-
-function ShipmentSummaryHeader({
-   invoice,
-   labels,
-}: {
-   invoice: TrackingInvoice;
-   labels: Pick<LandingMessages["tracking"], "fieldInvoice" | "fieldAgency" | "fieldProvince" | "fieldCity">;
-}): ReactElement | null {
-   const agency = scalarString(invoice.agency);
-   const inv = scalarString(invoice.invoiceId ?? invoice.order_id);
-   const prov = scalarString(invoice.province);
-   const city = scalarString(invoice.city);
-   const locationLine = [prov, city].filter(Boolean).join(" — ");
-
-   if (!agency && !inv && !locationLine) {
-      return null;
-   }
-
-   const metaCardClass =
-      "flex gap-4 rounded-lg border border-zinc-200/90 bg-white/80 p-4 dark:border-white/8 dark:bg-zinc-950/40";
-   const iconWrapClass =
-      "flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-amber-500/12 text-amber-700 dark:bg-amber-400/15 dark:text-amber-400";
-
-   return (
-      <div className="space-y-6">
-         {agency ? (
-            <div>
-               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">{labels.fieldAgency}</p>
-               <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white sm:text-[1.75rem]">{agency}</h2>
-            </div>
-         ) : null}
-         <div className="grid gap-4 sm:grid-cols-2 lg:max-w-3xl">
-            {inv ? (
-               <div className={metaCardClass}>
-                  <div className={iconWrapClass} aria-hidden>
-                     <FileText className="h-5 w-5" strokeWidth={1.75} />
-                  </div>
-                  <div className="min-w-0">
-                     <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 dark:text-zinc-400">{labels.fieldInvoice}</p>
-                     <p className="mt-1 text-xl font-semibold tabular-nums text-zinc-950 dark:text-white">{inv}</p>
-                  </div>
-               </div>
-            ) : null}
-            {locationLine ? (
-               <div className={metaCardClass}>
-                  <div className={iconWrapClass} aria-hidden>
-                     <MapPin className="h-5 w-5" strokeWidth={1.75} />
-                  </div>
-                  <div className="min-w-0">
-                     <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500 dark:text-zinc-400">
-                        {labels.fieldProvince} / {labels.fieldCity}
-                     </p>
-                     <p className="mt-1 text-base font-medium leading-snug text-zinc-900 dark:text-zinc-100">{locationLine}</p>
-                  </div>
-               </div>
-            ) : null}
          </div>
       </div>
    );
@@ -323,10 +348,12 @@ export function TrackingDetails({
 
    if (!hasParcels && rows.length === 0 && parcels.length === 0) {
       return (
-         <Card className="mt-8 border-zinc-200 shadow-md dark:border-white/10 dark:bg-zinc-950">
-            <CardContent className="pt-6">
-               <pre className="max-h-64 overflow-auto text-xs text-zinc-700 dark:text-zinc-300">
-                  <span className="mb-2 block text-[10px] font-semibold uppercase text-zinc-500">{labels.rawJson}</span>
+         <Card className="mt-8 overflow-hidden border-zinc-200/90 bg-gradient-to-b from-white to-zinc-50 shadow-lg shadow-zinc-900/[0.08] ring-1 ring-zinc-950/[0.04] dark:border-white/10 dark:from-zinc-950 dark:to-zinc-900/95 dark:shadow-black/35 dark:ring-white/[0.06]">
+            <CardContent className="px-6 py-8 sm:px-8">
+               <pre className="max-h-64 overflow-auto rounded-xl border border-zinc-200/80 bg-zinc-950/[0.02] p-4 font-mono text-xs leading-relaxed text-zinc-700 dark:border-white/10 dark:bg-black/35 dark:text-zinc-300">
+                  <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-800 dark:text-[#facc15]">
+                     {labels.rawJson}
+                  </span>
                   {JSON.stringify(invoice, null, 2)}
                </pre>
             </CardContent>
@@ -335,13 +362,7 @@ export function TrackingDetails({
    }
 
    return (
-      <Card className="mt-8 gap-0 overflow-hidden border-zinc-200 border-l-[3px] border-l-amber-500 py-0 shadow-lg dark:border-white/12 dark:border-l-[#facc15] dark:bg-zinc-950 dark:shadow-black/40">
-         {hasParcels ? (
-            <CardHeader className="border-b border-zinc-200/90 bg-zinc-50/90 px-5 py-6 sm:px-8 sm:py-8 dark:border-white/8 dark:bg-zinc-900/35">
-               <ShipmentSummaryHeader invoice={invoice} labels={labels} />
-            </CardHeader>
-         ) : null}
-
+      <Card className="mt-8 gap-0 overflow-hidden rounded-3xl border border-zinc-200/90 bg-white py-0 shadow-md shadow-zinc-900/[0.06] ring-0 dark:border-white/12 dark:bg-zinc-950 dark:shadow-black/35">
          <CardContent className="px-0 pb-0 pt-0">
             {!hasParcels && rows.length > 0 ? (
                <div className="divide-y divide-zinc-200/80 px-5 py-2 dark:divide-white/10 sm:px-8">
@@ -354,73 +375,61 @@ export function TrackingDetails({
             {hasParcels ? (
                <div>
                   {parcels.length > 1 ? (
-                     <p className="border-b border-zinc-200/90 px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:border-white/8 dark:text-zinc-400 sm:px-8">
-                        {labels.parcelsHeading}
-                     </p>
+                     <div className="flex items-center gap-4 border-b border-zinc-200/85 bg-zinc-50/85 px-5 py-3.5 dark:border-white/10 dark:bg-zinc-900/55 sm:px-8">
+                        <Package className="size-4 shrink-0 text-amber-700 dark:text-[#facc15]" aria-hidden />
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900/90 dark:text-[#fde047]/90">
+                           {labels.parcelsHeading}
+                        </p>
+                        <span className="hidden h-px flex-1 bg-gradient-to-r from-amber-300/50 to-transparent sm:block dark:from-[#facc15]/35" aria-hidden />
+                     </div>
                   ) : null}
                   <ul>
                      {parcels.map((p, i) => {
-                        const hbl = scalarString(p.hbl);
-                        const description = scalarString(p.description);
-                        const weight = scalarString(p.weight);
-                        const extras = parcelBodyWithoutHistorial(p);
-                        const hasExtras = Object.keys(extras).length > 0;
-                        const parcelKey = `${hbl ?? (p.id != null ? String(p.id) : "parcel")}-${i}`;
+                        const parcelKey = `${scalarString(p.hbl) ?? (p.id != null ? String(p.id) : "parcel")}-${i}`;
                         const displayTimeline: TrackingTimelineEvent[] =
                            Array.isArray(p.timeline) && p.timeline.length > 0 ? p.timeline : buildParcelTimeline(p as Record<string, unknown>);
                         const hasTimeline = displayTimeline.length > 0;
+                        const hasHistorial = Array.isArray(p.historial) && p.historial.length > 0;
+                        const parcelPosition: [number, number] | null = parcels.length > 1 ? [i + 1, parcels.length] : null;
+                        const twoColumns = hasTimeline || hasHistorial;
 
                         return (
-                           <li key={parcelKey} className="border-b border-zinc-200/90 last:border-b-0 dark:border-white/8">
-                              <div
-                                 className={cn(
-                                    "grid items-stretch",
-                                    hasTimeline
-                                       ? "lg:grid-cols-[minmax(0,1fr)_minmax(320px,42%)] xl:grid-cols-[minmax(0,1fr)_minmax(360px,40%)]"
-                                       : "",
-                                 )}
-                              >
-                                 <div className="min-w-0 border-b border-zinc-200/90 px-5 py-6 sm:px-8 sm:py-8 dark:border-white/8 lg:border-b-0 lg:border-r">
-                                    <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
-                                       {labels.packageDetails}
-                                    </p>
-                                    <dl>
-                                       {hbl ? (
-                                          <DetailRow label={labels.fieldHbl}>
-                                             <span className="break-all font-mono text-[14px] font-medium tracking-tight">{hbl}</span>
-                                          </DetailRow>
-                                       ) : null}
-                                       {description ? <DetailRow label={labels.fieldDescription}>{description}</DetailRow> : null}
-                                       {weight ? (
-                                          <DetailRow label={labels.fieldWeight}>
-                                             <span className="font-medium tabular-nums">{weight}</span>
-                                          </DetailRow>
-                                       ) : null}
-                                    </dl>
-
-                                    {hasExtras ? (
-                                       <pre className="mt-6 max-h-36 overflow-auto rounded-lg border border-zinc-200/80 bg-zinc-100/60 p-4 font-mono text-[11px] text-zinc-700 dark:border-white/8 dark:bg-black/40 dark:text-zinc-300">
-                                          {JSON.stringify(extras, null, 2)}
-                                       </pre>
-                                    ) : null}
-                                 </div>
+                           <li key={parcelKey} className="border-b border-zinc-100 last:border-b-0 dark:border-white/10">
+                              <div className={cn("grid gap-0", twoColumns && "lg:grid-cols-[2fr_minmax(0,3fr)]")}>
+                                 <ParcelSummaryPanel
+                                    invoice={invoice}
+                                    parcel={p}
+                                    labels={labels}
+                                    parcelPosition={parcelPosition}
+                                 />
 
                                  {hasTimeline ? (
-                                    <div className="min-w-0 bg-zinc-50/70 px-5 py-6 sm:px-8 sm:py-8 dark:bg-zinc-900/45">
-                                       <VerticalTimeline
-                                          events={displayTimeline}
-                                          heading={labels.timelineHeading}
-                                          terminalLabel={labels.terminalEvent}
-                                       />
-                                    </div>
-                                 ) : Array.isArray(p.historial) && p.historial.length > 0 ? (
-                                    <div className="min-w-0 bg-zinc-50/70 px-5 py-6 sm:px-8 sm:py-8 dark:bg-zinc-900/45 lg:border-l lg:border-zinc-200/90 dark:lg:border-white/8">
-                                       <h4 className="border-b border-zinc-200/90 pb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:border-white/8 dark:text-zinc-400">
-                                          {labels.historialHeading}
-                                       </h4>
-                                       <ul className="mt-5 list-inside list-disc space-y-2.5 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-                                          {p.historial.map((ev, j) => (
-                                             <li key={`${i}-h-${j}`}>{historialLine(ev)}</li>
+                                    <VerticalTimeline
+                                       events={displayTimeline}
+                                       heading={labels.timelineHeading}
+                                       terminalLabel={labels.terminalEvent}
+                                    />
+                                 ) : hasHistorial ? (
+                                    <div className="min-w-0 border-t border-zinc-100 bg-zinc-50/40 px-6 py-8 sm:border-t-0 sm:bg-transparent lg:border-l lg:border-zinc-100 lg:bg-zinc-50/25 xl:px-10 dark:border-white/10 dark:bg-zinc-900/35 dark:sm:bg-transparent dark:lg:bg-zinc-900/35">
+                                       <div className="mb-8 flex items-center gap-3">
+                                          <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
+                                             {labels.historialHeading}
+                                          </h4>
+                                          <span className="h-px flex-1 bg-zinc-200 dark:bg-white/15" aria-hidden />
+                                       </div>
+                                       <ul className="relative space-y-6 pl-0">
+                                          {p.historial?.map((ev, j) => (
+                                             <li key={`${i}-h-${j}`} className="flex gap-3 text-sm leading-relaxed">
+                                                <span
+                                                   className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full border border-[#eab308] bg-[#fef9c3]/40 text-[#ca8a04] dark:border-[#facc15] dark:bg-[#facc15]/10 dark:text-[#fde047]"
+                                                   aria-hidden
+                                                >
+                                                   <Check className="size-3" strokeWidth={2.5} />
+                                                </span>
+                                                <span className="min-w-0 pt-0.5 text-zinc-800 dark:text-zinc-200">
+                                                   {historialLine(ev)}
+                                                </span>
+                                             </li>
                                           ))}
                                        </ul>
                                     </div>
