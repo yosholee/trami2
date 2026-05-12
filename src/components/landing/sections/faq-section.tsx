@@ -1,10 +1,8 @@
-import Link from "next/link";
-
 import type { LandingMessages } from "@/i18n/types";
-import { siteUrl } from "@/lib/site";
 
 export function FaqSection({ m }: { m: LandingMessages }): React.ReactElement {
    const f = m.faq;
+   const supportEmailHref = `mailto:${m.footer.email}`;
    return (
       <section id="faq" className="scroll-mt-24 py-16 sm:py-24" aria-labelledby="faq-heading">
          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -38,12 +36,12 @@ export function FaqSection({ m }: { m: LandingMessages }): React.ReactElement {
             </div>
             <p className="mt-10 text-center text-sm text-zinc-700 dark:text-zinc-400">
                {f.moreHelp}{" "}
-               <Link
-                  href={siteUrl}
+               <a
+                  href={supportEmailHref}
                   className="font-semibold text-zinc-950 underline hover:text-amber-800 dark:text-white dark:hover:text-[#FFB800]"
                >
                   {f.supportLink}
-               </Link>
+               </a>
             </p>
          </div>
       </section>

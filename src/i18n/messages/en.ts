@@ -4,9 +4,9 @@ export const en: LandingMessages = {
    meta: {
       title: "TramiXpress | Shipping to Cuba from Sarasota, Bradenton & Tampa",
       description:
-         "Door-to-door shipping to Cuba from Florida’s Gulf Coast. Pickups and consolidation in Sarasota, Bradenton, and Tampa. Air and sea, food and medicine combos, real-time tracking, insurance, and 24/7 support.",
+         "Door-to-door shipping to Cuba from Sarasota, Bradenton, and Tampa. Bradenton location serving nearby Gulf Coast families with air and sea shipping, food and medicine combos, tracking, insurance, and 24/7 support. Transparent quotes via WhatsApp, pickup coordination, and online shipment tracking.",
       keywords:
-         "shipping to Cuba from Sarasota,Cuba shipping Bradenton,Cuba packages Tampa FL,TramiXpress,Gulf Coast Florida to Cuba,Tampa Bay to Cuba,Manatee County Cuba shipping,door to door Cuba,air shipping Cuba",
+         "shipping to Cuba from Sarasota,Cuba shipping Bradenton,Cuba packages Tampa FL,TramiXpress,Bradenton Cuba shipping,Sarasota packages to Cuba,Tampa packages to Cuba,Tampa Bay to Cuba,Manatee County Cuba shipping,door to door Cuba,air shipping Cuba,sea freight Cuba Florida,medicine parcels to Cuba,Gulf Coast Florida Cuba parcels,transparent Cuba shipping quote",
       ogLocale: "en_US",
    },
    nav: {
@@ -28,9 +28,9 @@ export const en: LandingMessages = {
    },
    hero: {
       badge: "Cuba shipping from Sarasota, Bradenton & Tampa",
-      h1Lead: "You need, ",
-      h1Accent: "we deliver",
-      sub: "We operate mainly from Sarasota, Bradenton, and Tampa—packages, food, and essentials for family in Cuba with real-time tracking, clear pricing, and thousands of Gulf Coast customers who trust us.",
+      h1Lead: "Ship to Cuba from ",
+      h1Accent: "Sarasota, Bradenton & Tampa",
+      sub: "TramiXpress is based in Bradenton and serves nearby Sarasota, Tampa, and Gulf Coast families sending packages, food, medicine, and essentials to Cuba with tracking, clear pricing, and WhatsApp support.",
       ctaAccount: "Contact on WhatsApp",
       ctaServices: "Track shipment",
       ctaWhatsappAria: "Contact TramiXpress on WhatsApp — opens in a new tab",
@@ -43,7 +43,7 @@ export const en: LandingMessages = {
       calloutHitch: "a hitch",
       calloutPrior: "Prioritizing",
       calloutConvenience: "customer convenience",
-      mobileTagline: "From Florida’s Gulf Coast (Sarasota, Bradenton, Tampa) to Cuba—built around your family.",
+      mobileTagline: "Bradenton location serving Sarasota, Bradenton, Tampa, and nearby Gulf Coast families shipping to Cuba.",
       imageAlt: "Cheerful delivery courier on a yellow scooter with stacked packages",
    },
    trust: {
@@ -54,7 +54,7 @@ export const en: LandingMessages = {
       secureDetail: "Insurance included on eligible services—your shipment is protected in transit.",
       supportTitle: "24/7 support",
       supportDetail:
-         "Dedicated support for tracking, customs, and pickups in Sarasota, Bradenton, Tampa, and nearby areas.",
+         "Dedicated support for tracking, customs, drop-off, and nearby pickup options around Sarasota, Bradenton, Tampa, and surrounding areas.",
    },
    value: {
       tabExperience: "Experience",
@@ -65,7 +65,7 @@ export const en: LandingMessages = {
       imageAlt: "Courier carefully holding shipping boxes for delivery to Cuba",
       experience: {
          title: "We ship to Cuba with experience you can feel",
-         body: "Years of consolidated routes from Florida’s Gulf Coast, local partners, and clear updates mean fewer surprises. From Sarasota, Bradenton, and Tampa to Havana and all of Cuba, your shipment is handled by people who know the lane.",
+         body: "Years of consolidated routes from Florida’s Gulf Coast, local partners, and clear updates mean fewer surprises. From our Bradenton location serving Sarasota and Tampa to Havana and all of Cuba, your shipment is handled by people who know the lane.",
       },
       responsibility: {
          title: "Full responsibility from pickup to handoff",
@@ -79,7 +79,7 @@ export const en: LandingMessages = {
    services: {
       kicker: "Our services",
       heading: "Everything you need for Cuba",
-      sub: "Pickup and consolidation focused on Sarasota, Bradenton, and Tampa—we cover the full lane to Cuba with clear timelines and no hidden fees.",
+      sub: "Drop-off and nearby pickup options for Sarasota, Bradenton, and Tampa customers. We cover the full lane to Cuba with clear timelines and no hidden fees.",
       learnMore: "Learn more",
       cta: "Explore shipping options",
       items: [
@@ -98,6 +98,31 @@ export const en: LandingMessages = {
          {
             title: "Door to door",
             body: "Delivery directly to your recipient’s home anywhere in Cuba—no guesswork at pickup.",
+         },
+      ],
+   },
+   localAreas: {
+      kicker: "Service areas",
+      heading: "One Bradenton location serving Sarasota, Bradenton & Tampa",
+      sub: "These are the three local markets we want to serve and rank for: real Gulf Coast customers sending packages, food, medicine, and essentials to family in Cuba.",
+      items: [
+         {
+            city: "Sarasota",
+            title: "Shipping to Cuba from Sarasota",
+            body: "Sarasota customers can message us for drop-off guidance, nearby pickup options, air or sea shipping, and help preparing food, medicine, and package shipments to Cuba.",
+            cta: "I want to ship to Cuba from Sarasota",
+         },
+         {
+            city: "Bradenton",
+            title: "Shipping to Cuba from Bradenton",
+            body: "Our physical location is in Bradenton, making it the main local point for boxes, packages, food, medicine, tracking help, and door-to-door Cuba delivery.",
+            cta: "I want to ship to Cuba from Bradenton",
+         },
+         {
+            city: "Tampa",
+            title: "Shipping to Cuba from Tampa",
+            body: "Tampa and Tampa Bay families can coordinate with TramiXpress for package shipping to Cuba, clear pricing, service options, and WhatsApp support before sending.",
+            cta: "I want to ship to Cuba from Tampa",
          },
       ],
    },
@@ -141,7 +166,7 @@ export const en: LandingMessages = {
       heading: "Frequently asked questions",
       sub: "Quick answers about timelines, allowed contents, insurance, and tracking.",
       moreHelp: "Need more help?",
-      supportLink: "Contact support on tramixpress.me",
+      supportLink: "Email TramiXpress support",
       items: [
          {
             q: "How long does shipping to Cuba take?",
@@ -161,7 +186,7 @@ export const en: LandingMessages = {
          },
          {
             q: "Where do you pick up or consolidate shipments?",
-            a: "We work mainly from Florida’s Gulf Coast—Sarasota, Bradenton, and Tampa (based in Bradenton). Message us on WhatsApp to arrange pickup or drop-off details for your area.",
+            a: "Our physical location is in Bradenton, and we serve nearby customers from Sarasota, Tampa, and surrounding Gulf Coast areas. Message us on WhatsApp to confirm drop-off or pickup options for your city.",
          },
       ],
    },
@@ -174,7 +199,7 @@ export const en: LandingMessages = {
          "Packages and weight by agency plus latest containers with status and progress",
       badge: "Our features",
       heading: "Easy tools with serious logistics behind them",
-      body: "Create shipments from Sarasota, Bradenton, or Tampa, upload documents, and share tracking with family in Cuba—the same tools thousands of customers use every week on TramiXpress.",
+      body: "Create shipments from Sarasota, Bradenton, or Tampa, upload documents, and share tracking with family in Cuba—the same tools customers use every week on TramiXpress.",
       learnMore: "Learn more",
       tryNow: "Try it now",
    },
@@ -182,7 +207,7 @@ export const en: LandingMessages = {
       headingBefore: "Live tracking from ",
       headingHighlight: "Florida to Cuba",
       headingAfter: "",
-      body: "Follow every step from Gulf Coast consolidation (Sarasota, Bradenton, Tampa) through final delivery in Cuba. Fewer “where is my box?” moments for you and your family.",
+      body: "Follow every step from Gulf Coast consolidation for Sarasota, Bradenton, and Tampa shipments through final delivery in Cuba. Fewer “where is my box?” moments for you and your family.",
       track: "Track a package",
       dashboard: "Open dashboard",
       mapOriginHub: "Sarasota · Bradenton · Tampa",
@@ -262,15 +287,16 @@ export const en: LandingMessages = {
    },
    social: {
       kicker: "Follow us",
-      heading: "Facebook & Google",
-      sub: "Connect on Facebook and find TramiXpress on Google—updates, reviews, and how to reach us.",
+      heading: "Facebook, TikTok & Google",
+      sub: "Connect on Facebook and TikTok, and find TramiXpress on Google—updates, reviews, short videos, and how to reach us.",
       facebookLabel: "Facebook — TramiXpress",
       googleLabel: "Google — TramiXpress",
+      tiktokLabel: "TikTok — @tramixpress_",
       opensNewTab: "Opens in a new tab",
    },
    finalCta: {
       heading: "Ready to start shipping?",
-      body: "In Sarasota, Bradenton, or Tampa? Message us on WhatsApp for quotes and pickup options; compare air and sea and lock in transparent pricing on tramixpress.me.",
+      body: "In Sarasota, Bradenton, or Tampa? Message us on WhatsApp for quotes, drop-off, and nearby pickup options; compare air and sea and lock in transparent pricing on tramixpress.me.",
       ctaAccount: "Contact on WhatsApp",
       ctaWhatsappAria: "Contact TramiXpress on WhatsApp — opens in a new tab",
       ctaSales: "Contact sales",
@@ -278,14 +304,14 @@ export const en: LandingMessages = {
          "Join 12,000+ subscribers who get weekly schedules, customs updates, and exclusive offers—straight from TramiXpress.",
    },
    footer: {
-      blurb: "Shipping to Cuba from Sarasota, Bradenton, and Tampa: packages, food, medicine, and more—Gulf Coast consolidation, door-to-door delivery in Cuba, insurance, and 24/7 support.",
+      blurb: "Shipping to Cuba from Sarasota, Bradenton, and Tampa: packages, food, medicine, and more from our Bradenton location serving nearby Gulf Coast customers.",
       contact: "Contact",
-      hubs: "Hubs",
+      hubs: "Service areas",
       siteLink: "tramixpress.me",
       email: "tramixpress2.llc@gmail.com",
       phone: "(941) 278-2357",
       address: "1201 9th ST W, Bradenton, FL",
-      hub1: "Sarasota, Bradenton & Tampa, FL",
+      hub1: "Bradenton location serving Sarasota & Tampa",
       hub2: "Door-to-door Cuba nationwide",
       hub3: "Air & sea departures",
       rights: "All rights reserved.",
@@ -295,7 +321,9 @@ export const en: LandingMessages = {
       meta: {
          title: "Track your shipment | TramiXpress",
          description:
-            "Look up your shipment by invoice, HBL, or order number. We operate from Sarasota, Bradenton, and Tampa—results load on this page.",
+            "Look up your shipment by invoice, HBL, or order number. TramiXpress serves Sarasota, Bradenton, and Tampa shipments to Cuba—results load on this page.",
+         keywords:
+            "TramiXpress tracking,track shipment to Cuba,HBL tracking Cuba,invoice tracking Cuba,order tracking Cuba,Florida Cuba parcel status,rastreo envío Cuba",
       },
       heading: "Track your shipment",
       sub: "Enter an invoice, HBL, or order number. Digits-only values are treated as an order ID; other codes use tracking lookup (min. 3 characters, CTE suffix optional).",
@@ -319,7 +347,10 @@ export const en: LandingMessages = {
       timelineHeading: "Shipment timeline",
       terminalEvent: "Terminal event",
       rawJson: "Details",
-      opensAppHint: "You can still open tramixpress.me in another tab for the full experience.",
+      opensAppHint: "Tracking support for Sarasota, Bradenton, and Tampa shipments to Cuba.",
+      poweredByPrefix: "Powered by Atlas technology through",
+      poweredByLink: "CTEnvios",
+      poweredBySuffix: "for shipment visibility.",
       backHome: "Back to home",
       suspenseFallback: "Loading…",
    },

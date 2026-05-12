@@ -2,11 +2,12 @@ import { FinalCta } from "@/components/landing/sections/final-cta-section";
 import { LocationSection } from "@/components/landing/sections/location-section";
 import { SocialSection } from "@/components/landing/sections/social-section";
 import { DotPattern } from "@/components/ui/dot-pattern";
+import type { Locale } from "@/i18n/config";
 import type { LandingMessages } from "@/i18n/types";
 import { cn } from "@/lib/utils";
 
 /** Shared dot pattern behind social + location + final CTA so the band reads as one. */
-export function SocialFinalCtaBand({ m }: { m: LandingMessages }): React.ReactElement {
+export function SocialFinalCtaBand({ m, locale }: { m: LandingMessages; locale: Locale }): React.ReactElement {
    return (
       <div className="relative overflow-hidden">
          <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -24,7 +25,7 @@ export function SocialFinalCtaBand({ m }: { m: LandingMessages }): React.ReactEl
          </div>
          <div className="relative z-10">
             <SocialSection m={m} />
-            <LocationSection m={m} />
+            <LocationSection m={m} locale={locale} />
             <FinalCta m={m} />
          </div>
       </div>

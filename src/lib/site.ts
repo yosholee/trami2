@@ -14,6 +14,12 @@ export const siteUrl: string = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tram
 /** Official Facebook page (Bradenton, FL). */
 export const socialFacebookUrl = "https://www.facebook.com/TramiXpress/";
 
+/** Official TikTok profile (@tramixpress_). */
+export const socialTiktokUrl = "https://www.tiktok.com/@tramixpress_";
+
+/** Technology / tracking partner site. */
+export const ctEnviosUrl = "https://ctenvios.com";
+
 /** Google Search for TramiXpress (Business / reviews surface in results). */
 export const socialGoogleUrl =
    "https://www.google.com/search?q=TramiXpress+Sarasota+Bradenton+Tampa+Cuba+shipping";
@@ -49,15 +55,18 @@ export function trackingUrlForId(trackingId: string): string {
 export const siteName = "TramiXpress";
 
 export const siteDescription =
-   "Door-to-door shipping to Cuba from Florida's Gulf Coast: Sarasota, Bradenton, and Tampa. Air and sea, food and medicine combos, real-time tracking, insurance, and 24/7 support.";
+   "Door-to-door shipping to Cuba from Sarasota, Bradenton, and Tampa. Bradenton location serving nearby Gulf Coast families with air and sea shipping, food and medicine combos, tracking, insurance, and 24/7 support.";
 
 export const siteTagline =
-   "Cuba shipping from Sarasota, Bradenton & Tampa—packages, food, essentials, and medicine.";
+   "Cuba shipping from Sarasota, Bradenton & Tampa—Bradenton location for packages, food, essentials, and medicine.";
 
 export const keywords: string[] = [
    "shipping to Cuba from Sarasota",
    "shipping to Cuba Bradenton",
    "shipping to Cuba Tampa",
+   "packages to Cuba Sarasota",
+   "packages to Cuba Bradenton",
+   "packages to Cuba Tampa",
    "Tampa Bay Cuba shipping",
    "Gulf Coast Florida to Cuba",
    "door to door Cuba",

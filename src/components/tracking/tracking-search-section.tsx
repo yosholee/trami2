@@ -10,6 +10,7 @@ import {
    useFetchByInvoiceOrHBL,
 } from "@/hooks/use-fetch-by-invoice-or-hbl";
 import type { LandingMessages } from "@/i18n/types";
+import { ctEnviosUrl } from "@/lib/site";
 
 import { TrackingDetails } from "./tracking-details";
 
@@ -58,9 +59,6 @@ export function TrackingSearchSection({
    }, [searchParams, initialSearch]);
 
    const { data, isLoading, isError, error, isFetching } = useFetchByInvoiceOrHBL(submittedTerm);
-
-
-   console.log(data);
    function onSubmit(e: React.SubmitEvent<HTMLFormElement>): void {
       e.preventDefault();
       const raw = new FormData(e.currentTarget).get("search");
@@ -90,7 +88,7 @@ export function TrackingSearchSection({
             <Button
                type="submit"
                disabled={busy}
-               className="h-12 w-full rounded-full bg-[#eab308] font-semibold text-zinc-950 hover:bg-[#ca8a04] dark:bg-[#facc15] dark:text-[#1a1a1a] dark:hover:bg-[#eab308]"
+               className="h-12 w-full rounded-full bg-[#eab308] font-semibold text-zinc-950 transition-colors duration-150 hover:bg-[#f59e0b] dark:bg-[#facc15] dark:text-[#1a1a1a] dark:hover:bg-[#eab308]"
             >
                {busy ? labels.searching : labels.submit}
             </Button>
@@ -108,7 +106,21 @@ export function TrackingSearchSection({
             </div>
          ) : null}
 
-         <p className="mx-auto max-w-md text-center text-xs text-zinc-600 dark:text-zinc-500">{labels.opensAppHint}</p>
+         <div className="mx-auto max-w-md space-y-1 text-center text-xs text-zinc-600 dark:text-zinc-500">
+            <p>{labels.opensAppHint}</p>
+            <p>
+               {labels.poweredByPrefix}{" "}
+               <a
+                  href={ctEnviosUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-amber-800 underline decoration-amber-700/40 underline-offset-4 hover:text-amber-950 dark:text-[#facc15] dark:decoration-[#facc15]/40 dark:hover:text-[#fde047]"
+               >
+                  {labels.poweredByLink}
+               </a>{" "}
+               {labels.poweredBySuffix}
+            </p>
+         </div>
       </section>
    );
 }

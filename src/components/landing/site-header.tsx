@@ -57,7 +57,7 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
                         <NavigationMenuLink
                            render={<Link href={href} />}
                            active={fragment === "#inicio"}
-                           className="rounded-full px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-200/80 hover:text-zinc-950 data-active:bg-transparent data-active:text-amber-800 data-active:hover:bg-transparent data-active:hover:text-amber-800 data-active:underline data-active:decoration-amber-700 data-active:decoration-2 data-active:underline-offset-8 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white dark:data-active:text-[#FFB800] dark:data-active:hover:text-[#FFB800] dark:data-active:decoration-[#FFB800] xl:px-4"
+                           className="rounded-full px-3 py-2 text-sm font-medium text-zinc-700 transition-colors duration-150 hover:bg-zinc-950/[0.07] hover:text-zinc-950 data-active:bg-transparent data-active:text-amber-800 data-active:hover:bg-transparent data-active:hover:text-amber-800 data-active:underline data-active:decoration-amber-700 data-active:decoration-2 data-active:underline-offset-8 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white dark:data-active:text-[#FFB800] dark:data-active:hover:text-[#FFB800] dark:data-active:decoration-[#FFB800] xl:px-4"
                         >
                            {labels[i]}
                         </NavigationMenuLink>
@@ -79,7 +79,7 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="text-zinc-800 hover:bg-zinc-200/80 dark:text-white dark:hover:bg-white/10"
+                  className="text-zinc-800 transition-colors duration-150 hover:bg-zinc-950/[0.07] dark:text-white dark:hover:bg-white/10"
                   onClick={() => setOpen((v) => !v)}
                   aria-expanded={open}
                   aria-label={open ? nav.menuClose : nav.menuOpen}
@@ -102,7 +102,7 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
                   <Link
                      key={fragment}
                      href={href}
-                     className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-white/10"
+                     className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 transition-colors duration-150 hover:bg-zinc-950/[0.07] dark:text-zinc-200 dark:hover:bg-white/10"
                      onClick={() => setOpen(false)}
                   >
                      {labels[i]}
@@ -112,14 +112,14 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
                <div className="mt-2 flex flex-col gap-2 border-t border-zinc-200 pt-4 dark:border-white/10">
                   <Button
                      variant="outline"
-                     className="w-full rounded-full border-0 bg-zinc-100 text-zinc-950 hover:bg-zinc-200/90 dark:border dark:border-white/40 dark:bg-white dark:hover:bg-zinc-100"
+                     className="w-full rounded-full border-0 bg-zinc-100 text-zinc-950 transition-colors duration-150 hover:bg-zinc-950/8 dark:border dark:border-white/40 dark:bg-white dark:hover:bg-zinc-100"
                      render={<Link href={siteUrl} />}
                      onClick={() => setOpen(false)}
                   >
                      {nav.login}
                   </Button>
                   <Button
-                     className="w-full rounded-full bg-[#FFB800] text-zinc-950 hover:bg-[#e5a800]"
+                     className="w-full rounded-full bg-[#FFB800] text-zinc-950 transition-colors duration-150 hover:bg-[#e6ac00] dark:hover:bg-[#e5a800]"
                      render={<Link href={siteUrl} />}
                      onClick={() => setOpen(false)}
                   >

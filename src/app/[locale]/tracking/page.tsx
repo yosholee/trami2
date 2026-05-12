@@ -6,6 +6,7 @@ import { Suspense } from "react";
 
 import { ContactFooter } from "@/components/landing/contact-footer";
 import { SiteHeader } from "@/components/landing/site-header";
+import { TrackingJsonLd } from "@/components/seo/tracking-json-ld";
 import { TrackingSearchSection } from "@/components/tracking/tracking-search-section";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -22,7 +23,7 @@ export async function generateMetadata({
   }
   const m = getDictionary(raw);
   const t = m.tracking.meta;
-  const kw = m.meta.keywords.split(",").map((k) => k.trim()).filter(Boolean);
+  const kw = t.keywords.split(",").map((k) => k.trim()).filter(Boolean);
 
   return {
     title: t.title,
@@ -70,6 +71,7 @@ export default async function TrackingPage({
 
   return (
     <div className="relative flex min-h-full flex-col overflow-x-clip bg-white dark:bg-[#1a1a1a]">
+      <TrackingJsonLd locale={raw} />
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_16%,rgba(250,204,21,0.11),transparent_52%),radial-gradient(circle_at_72%_78%,rgba(0,0,0,0.055),transparent_44%)] dark:bg-[radial-gradient(ellipse_90%_70%_at_50%_18%,rgba(250,204,21,0.12),transparent_55%),radial-gradient(circle_at_72%_78%,rgba(255,255,255,0.035),transparent_46%)]"
         aria-hidden

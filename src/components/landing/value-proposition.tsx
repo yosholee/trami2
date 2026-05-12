@@ -61,7 +61,7 @@ export function ValueProposition({
                     {tabContent[key].body}
                   </p>
                   <Button
-                    className="h-11 rounded-full bg-[#FFB800] px-6 text-zinc-950 hover:bg-[#e5a800]"
+                    className="h-11 rounded-full bg-[#FFB800] px-6 text-zinc-950 transition-colors duration-150 hover:bg-[#e6ac00] dark:hover:bg-[#e5a800]"
                     render={<Link href={siteUrl} />}
                   >
                     {value.ctaQuote}

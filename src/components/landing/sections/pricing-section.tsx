@@ -76,7 +76,7 @@ export function PricingSection({ m }: { m: LandingMessages }): React.ReactElemen
                            </div>
                         ) : null}
                         {plan.highlight ? (
-                           <Badge className="absolute left-1/2 top-0 z-[35] -translate-x-1/2 -translate-y-1/2 rounded-full border-0 bg-[#facc15] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-zinc-950 shadow-[0_4px_14px_rgba(0,0,0,0.35)] hover:bg-[#eab308] dark:border dark:border-[#facc15]/60">
+                           <Badge className="absolute left-1/2 top-0 z-[35] -translate-x-1/2 -translate-y-1/2 rounded-full border-0 bg-[#facc15] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-zinc-950 shadow-[0_4px_14px_rgba(0,0,0,0.35)] transition-colors duration-150 hover:bg-[#fde047] dark:border dark:border-[#facc15]/60 dark:hover:bg-[#eab308]">
                               {p.popular}
                            </Badge>
                         ) : null}
@@ -115,8 +115,8 @@ export function PricingSection({ m }: { m: LandingMessages }): React.ReactElemen
                               className={cn(
                                  "mt-8 h-11 w-full rounded-full border-transparent font-semibold",
                                  plan.highlight
-                                    ? "bg-[#facc15] text-zinc-950 hover:bg-[#eab308]"
-                                    : "border-0 bg-zinc-100 text-zinc-950 hover:bg-zinc-200 dark:border dark:border-white/25 dark:bg-white/5 dark:text-white dark:hover:bg-white/12",
+                                    ? "bg-[#facc15] text-zinc-950 transition-colors duration-150 hover:bg-[#f59e0b] dark:hover:bg-[#eab308]"
+                                    : "border-0 bg-zinc-100 text-zinc-950 transition-colors duration-150 hover:bg-zinc-950/[0.1] dark:border dark:border-white/25 dark:bg-white/5 dark:text-white dark:hover:bg-white/12",
                               )}
                               variant={plan.highlight ? "default" : "outline"}
                               render={<Link href={siteUrl} />}

@@ -29,6 +29,13 @@ export interface ValueTab {
    body: string;
 }
 
+export interface LocalAreaItem {
+   city: string;
+   title: string;
+   body: string;
+   cta: string;
+}
+
 export interface LandingMessages {
    meta: {
       title: string;
@@ -104,6 +111,12 @@ export interface LandingMessages {
       learnMore: string;
       cta: string;
       items: ServiceItem[];
+   };
+   localAreas: {
+      kicker: string;
+      heading: string;
+      sub: string;
+      items: LocalAreaItem[];
    };
    pricing: {
       kicker: string;
@@ -185,6 +198,7 @@ export interface LandingMessages {
       sub: string;
       facebookLabel: string;
       googleLabel: string;
+      tiktokLabel: string;
       opensNewTab: string;
    };
    finalCta: {
@@ -199,6 +213,7 @@ export interface LandingMessages {
       meta: {
          title: string;
          description: string;
+         keywords: string;
       };
       heading: string;
       sub: string;
@@ -223,6 +238,9 @@ export interface LandingMessages {
       terminalEvent: string;
       rawJson: string;
       opensAppHint: string;
+      poweredByPrefix: string;
+      poweredByLink: string;
+      poweredBySuffix: string;
       backHome: string;
       suspenseFallback: string;
    };

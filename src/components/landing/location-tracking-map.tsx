@@ -144,6 +144,11 @@ function truckScreenRotationFromTimedPath(
    t: number,
    outboundLeg: boolean
 ): number | null {
+   const styleLoaded = map.isStyleLoaded();
+   if (!map.loaded() || styleLoaded === false) {
+      return null;
+   }
+
    const δ = TRUCK_SCREEN_PATH_EPS;
    const pAt = (u: number): [number, number] => pointAlongRoute(coords, u);
    let from: [number, number];
@@ -165,8 +170,15 @@ function truckScreenRotationFromTimedPath(
       to = pAt(t);
    }
 
-   const a = map.project(from);
-   const b = map.project(to);
+   let a: { x: number; y: number };
+   let b: { x: number; y: number };
+   try {
+      a = map.project(from);
+      b = map.project(to);
+   } catch {
+      /* Transform/projection can be briefly undefined during MapLibre 5.x init or style swaps. */
+      return null;
+   }
    const dx = b.x - a.x;
    const dy = b.y - a.y;
    if (Math.abs(dx) + Math.abs(dy) < TRUCK_SCREEN_DELTA_PX) {
@@ -374,7 +386,7 @@ function AnimatedProvincePin({
       >
          <div className="province-pin-ping pointer-events-none absolute size-2 rounded-full" style={style} />
          <div
-            className="province-pin-dot pointer-events-none relative z-[1] size-2 rounded-full border-2 border-white/95 shadow-[0_1px_4px_rgba(0,0,0,0.65)]"
+            className="province-pin-dot pointer-events-none relative  size-2 rounded-full border-2 border-white/95 shadow-[0_1px_4px_rgba(0,0,0,0.65)]"
             style={style}
          />
       </div>
@@ -408,11 +420,15 @@ function FitRouteViewport(): null {
       bounds.extend(SANTIAGO_DELIVERY);
       bounds.extend(SHIP_AT_SEA);
 
-      map.fitBounds(bounds, {
-         padding: { top: 44, bottom: 52, left: 48, right: 48 },
-         duration: 0,
-         maxZoom: 6.1,
-      });
+      try {
+         map.fitBounds(bounds, {
+            padding: { top: 44, bottom: 52, left: 48, right: 48 },
+            duration: 0,
+            maxZoom: 6.1,
+         });
+      } catch {
+         return;
+      }
       didFitRef.current = true;
    }, [isLoaded, map]);
 

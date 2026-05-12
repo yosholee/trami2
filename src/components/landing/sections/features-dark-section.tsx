@@ -55,14 +55,14 @@ export function FeaturesDark({ m }: { m: LandingMessages }): React.ReactElement 
                      <p className="text-zinc-700 dark:text-zinc-400">{f.body}</p>
                      <div className="flex flex-wrap gap-3">
                         <Button
-                           className="h-11 rounded-full bg-[#FFB800] px-6 text-zinc-950 hover:bg-[#e5a800]"
+                           className="h-11 rounded-full bg-[#FFB800] px-6 text-zinc-950 transition-colors duration-150 hover:bg-[#e6ac00] dark:hover:bg-[#e5a800]"
                            render={<Link href={siteUrl} />}
                         >
                            {f.learnMore}
                         </Button>
                         <Button
                            variant="outline"
-                           className="h-11 rounded-full border-0 bg-zinc-100 px-6 text-zinc-800 hover:bg-zinc-200/80 dark:border dark:border-white/30 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
+                           className="h-11 rounded-full border-0 bg-zinc-100 px-6 text-zinc-800 transition-colors duration-150 hover:bg-zinc-950/[0.08] dark:border dark:border-white/30 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
                            render={<Link href={siteUrl} />}
                         >
                            {f.tryNow}

@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
+import type { Locale } from "@/i18n/config";
 import type { LandingMessages } from "@/i18n/types";
-import { siteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function LocationSection({ m }: { m: LandingMessages }): React.ReactElement {
+export function LocationSection({ m, locale }: { m: LandingMessages; locale: Locale }): React.ReactElement {
    const l = m.location;
    return (
       <section className="relative overflow-hidden py-16 sm:py-20">
@@ -49,8 +49,8 @@ export function LocationSection({ m }: { m: LandingMessages }): React.ReactEleme
                      <p className="text-zinc-700 dark:text-zinc-400">{l.body}</p>
                      <div className="flex flex-wrap gap-3">
                         <Button
-                           className="h-11 rounded-full bg-[#FFB800] px-6 text-zinc-950 hover:bg-[#e5a800]"
-                           render={<Link href={siteUrl} />}
+                           className="h-11 rounded-full bg-[#FFB800] px-6 text-zinc-950 transition-colors duration-150 hover:bg-[#e6ac00] dark:hover:bg-[#e5a800]"
+                           render={<Link href={`/${locale}/tracking`} />}
                         >
                            {l.track}
                         </Button>

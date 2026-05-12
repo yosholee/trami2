@@ -48,7 +48,7 @@ export function LanguageSwitcher({
             "h-8 min-w-9 rounded-full px-2.5 text-xs font-semibold",
             loc === current
               ? "bg-[#FFB800] text-zinc-950 hover:bg-[#FFB800]"
-              : "text-zinc-600 hover:bg-zinc-300/50 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white"
+              : "text-zinc-600 transition-colors duration-150 hover:bg-zinc-950/[0.09] hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white"
           )}
           render={<Link href={hrefFor(loc)} scroll={false} />}
         >

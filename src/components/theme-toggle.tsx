@@ -29,7 +29,7 @@ export function ThemeToggle({ label }: { label: string }): ReactElement {
          type="button"
          variant="ghost"
          size="icon"
-         className="size-9 shrink-0 text-zinc-700 hover:bg-zinc-200/80 dark:text-white dark:hover:bg-white/10"
+         className="size-9 shrink-0 text-zinc-700 transition-colors duration-150 hover:bg-zinc-950/[0.07] dark:text-white dark:hover:bg-white/10"
          aria-label={label}
          aria-pressed={isDark}
          onClick={() => setTheme(isDark ? "light" : "dark")}

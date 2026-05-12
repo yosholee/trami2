@@ -95,7 +95,7 @@ export function HeroSection({ m, locale }: { m: LandingMessages; locale: Locale 
                   </p>
                   <div className="mt-8 flex flex-col items-center gap-2 sm:gap-3 lg:flex-row lg:flex-nowrap lg:justify-start">
                      <Button
-                        className="h-11 w-full min-w-0 whitespace-nowrap rounded-full bg-[#eab308] px-4 text-sm font-semibold text-zinc-950 hover:bg-[#ca8a04] sm:w-auto sm:px-6 sm:text-base lg:shrink-0 dark:bg-[#facc15] dark:text-[#1a1a1a] dark:hover:bg-[#eab308]"
+                        className="h-11 w-full min-w-0 whitespace-nowrap rounded-full bg-[#eab308] px-4 text-sm font-semibold text-zinc-950 transition-colors duration-150 hover:bg-[#f59e0b] sm:w-auto sm:px-6 sm:text-base lg:shrink-0 dark:bg-[#facc15] dark:text-[#1a1a1a] dark:hover:bg-[#eab308]"
                         render={
                            <a
                               href={whatsappChatUrl()}
@@ -109,7 +109,7 @@ export function HeroSection({ m, locale }: { m: LandingMessages; locale: Locale 
                      </Button>
                      <Button
                         variant="outline"
-                        className="h-11 w-full min-w-0 whitespace-nowrap rounded-full border-0 bg-zinc-100/90 px-4 text-sm font-medium text-zinc-900 hover:bg-zinc-200/80 sm:w-auto sm:px-6 sm:text-base lg:shrink-0 dark:border dark:border-white/25 dark:bg-transparent dark:font-normal dark:text-white dark:hover:bg-white/10"
+                        className="h-11 w-full min-w-0 whitespace-nowrap rounded-full border-0 bg-zinc-100/90 px-4 text-sm font-medium text-zinc-900 transition-colors duration-150 hover:bg-zinc-950/[0.07] sm:w-auto sm:px-6 sm:text-base lg:shrink-0 dark:border dark:border-white/25 dark:bg-transparent dark:font-normal dark:text-white dark:hover:bg-white/10"
                         render={<Link href={`/${locale}/tracking`} />}
                      >
                         {h.ctaServices}
