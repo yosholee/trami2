@@ -35,7 +35,11 @@ Las respuestas ya están publicadas en **`/es/faq`** y **`/en/faq`** (fuentes en
 3. Can I send food to Cuba? / ¿Puedo enviar comida a Cuba?
 4. What happens if Cuban customs retains or inspects my package? / ¿Qué pasa si la aduana cubana retiene o inspecciona mi paquete?
 5. Are electronics allowed? / ¿Están permitidos los electrónicos?
-6. How does Cuban customs work for family shipments? / ¿Cómo funciona la aduana cubana para envíos familiares?
+6. Can I send TVs to Cuba? / ¿Puedo enviar televisores a Cuba?
+7. Can I send generators to Cuba? / ¿Puedo enviar generadores a Cuba?
+8. Can I ship solar panels to Cuba? / ¿Puedo enviar paneles solares a Cuba?
+9. Can I send refrigerators to Cuba? / ¿Puedo enviar refrigeradores a Cuba?
+10. How does Cuban customs work for family shipments? / ¿Cómo funciona la aduana cubana para envíos familiares?
 
 ---
 

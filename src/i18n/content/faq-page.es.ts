@@ -100,6 +100,22 @@ export const faqPageEs: LandingMessages["faqPage"] = {
                a: "Muchos electrónicos se pueden enviar, pero pueden generar aranceles, exigir factura o prueba de valor, o toparse con límites de cantidad según regulaciones vigentes. Portátiles, teléfonos y electrodomésticos suelen recibir más escrutinio. Declara con precisión y evita mezclar bienes no declarados con declarados. Nuestro equipo puede sugerir embalaje y documentación alineados con lo que suelen esperar los oficiales para envíos personales.",
             },
             {
+               q: "¿Puedo enviar televisores a Cuba?",
+               a: "Los televisores suelen admitirse cuando se declaran bien, pero son voluminosos, frágiles y a menudo generan liquidación o valoración aduanera. El tamaño de pantalla y la marca influyen en el embalaje—usa protección original o esquinas reforzadas si puedes—y el mar suele ser la vía práctica para equipos grandes. Comparte modelo y medidas antes de traer el equipo para confirmar si aplica tu servicio, plazos realistas y cómo rotular el envío para exportación y aduana cubana.",
+            },
+            {
+               q: "¿Puedo enviar generadores a Cuba?",
+               a: "Los generadores a veces pueden enviarse, pero pesan mucho, valen bastante y tienen normas de manejo más estrictas: restos de combustible/aceite, baterías y reglas de mercancía peligrosa pueden afectar si el transportista acepta la unidad. No todo zarpe o servicio admite generadores. Escríbenos con marca, potencia, peso y fotos del equipo y del embalaje; te diremos si tu generador puede moverse, en qué modalidad (suele ser mar para unidades grandes) y qué documentación ayuda a reducir roces en aduana.",
+            },
+            {
+               q: "¿Puedo enviar paneles solares a Cuba?",
+               a: "Los paneles solares son grandes, frágiles y con frecuencia viajan por mar en cajas o marcos bien acolchados para evitar microgrietas en las celdas. Los aranceles y la frecuencia de inspección pueden variar. Indica cantidad de paneles, potencia, dimensiones y si llevas estructura o inversores para dirigirte al servicio de consolidación y estándar de embalaje adecuado. Como otros electrónicos de valor, la declaración honesta y las facturas (si existen) ayudan en aduana.",
+            },
+            {
+               q: "¿Puedo enviar refrigeradores a Cuba?",
+               a: "Los refrigeradores de tamaño completo son un envío típico por mar por peso y volumen. La unidad debe prepararse bien—limpia, seca y asegurada para que no se dañen puertas ni compresor en tránsito. A veces se exigen papeles específicos o aranceles más altos. Envíanos fotos, medidas y estado del electrodoméstico antes de traerlo al almacén; confirmamos si la vía que quieres lo acepta y cómo embalarlo o encajonarlo.",
+            },
+            {
                q: "¿Cómo funciona la aduana cubana para envíos familiares?",
                a: "Los envíos personales y familiares suelen tratarse como no comerciales, pero igual aplican prohibiciones, límites de cantidad y reglas de valoración. Etiquetado claro, listas honestas de contenido y cantidades realistas reducen problemas. Volúmenes con apariencia comercial o envíos repetidos idénticos pueden tratarse distinto. Orientamos a los remitentes sobre cómo describir la mercancía para que el destinatario tenga menos sorpresas al liberar.",
             },

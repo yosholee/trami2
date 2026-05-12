@@ -100,6 +100,22 @@ export const faqPageEn: LandingMessages["faqPage"] = {
                a: "Many electronics can ship, but they may attract duties, require invoices or proof of value, or face quantity limits depending on current regulations. Laptops, phones, and appliances are common scrutiny points. Declare items accurately and avoid mixing undeclared goods with declared ones. Our team can suggest packing and documentation practices that match what customs officers expect for personal-use shipments.",
             },
             {
+               q: "Can I send TVs to Cuba?",
+               a: "Televisions are often allowed when declared correctly, but they are bulky, fragile, and frequently subject to duties or valuation checks. Screen size and brand matter for packing—use original foam/corner protection when possible—and sea freight is usually the practical lane for larger sets. Share model and dimensions with us before you drop off so we can confirm service eligibility, realistic timelines, and how to label the shipment for both export and Cuban customs.",
+            },
+            {
+               q: "Can I send generators to Cuba?",
+               a: "Generators may ship on some lanes, but they are heavy, high-value, and subject to stricter handling: residual fuel/oil, batteries, and hazardous-material rules can affect whether a carrier accepts the unit. Not every sailing or service type will take generators. Contact us with brand, wattage, weight, and photos of the unit and packaging—we will tell you if your specific generator can move, which mode (usually sea for larger units), and what documentation helps reduce customs friction.",
+            },
+            {
+               q: "Can I ship solar panels to Cuba?",
+               a: "Solar panels are large, fragile, and often shipped by sea in well-padded crates or factory boxes to avoid micro-cracks in cells. Duties and inspection frequency can change. Send panel count, wattage, dimensions, and whether frames or inverters are included so we can route you to the right consolidation service and packing standard. As with other high-value electronics, honest valuation and invoices (when available) help at customs.",
+            },
+            {
+               q: "Can I send refrigerators to Cuba?",
+               a: "Full-size refrigerators are a classic sea-freight shipment because of weight and dimensions. Units must be prepared properly—clean, dry, and secured so doors and compressors are not damaged in transit. Some cases require specific documentation or may face higher duties. Send us photos, measurements, and age/condition of the appliance before you bring it to the warehouse; we will confirm whether the lane you want can accept it and how it should be crated or padded.",
+            },
+            {
                q: "How does Cuban customs work for family shipments?",
                a: "Personal and family shipments are generally categorized as non-commercial, but officers still enforce bans, quantity limits, and valuation rules. Clear labeling, honest contents lists, and realistic quantities reduce problems. Commercial-looking volumes or repeated identical shipments may be treated differently. We coach senders on how to describe goods so recipients face fewer surprises at release.",
             },

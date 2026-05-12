@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { jsonLdScriptContent } from "@/lib/json-ld-serialize";
 import {
   siteName,
   siteUrl,
@@ -116,7 +117,7 @@ export async function JsonLd({
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(buildJsonLd(locale)),
+        __html: jsonLdScriptContent(buildJsonLd(locale)),
       }}
     />
   );
