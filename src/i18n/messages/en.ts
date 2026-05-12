@@ -1,4 +1,5 @@
 import type { LandingMessages } from "@/i18n/types";
+import { faqPageEn } from "@/i18n/content/faq-page.en";
 
 export const en: LandingMessages = {
    meta: {
@@ -167,6 +168,7 @@ export const en: LandingMessages = {
       sub: "Quick answers about timelines, allowed contents, insurance, and tracking.",
       moreHelp: "Need more help?",
       supportLink: "Email TramiXpress support",
+      viewAll: "View all FAQs",
       items: [
          {
             q: "How long does shipping to Cuba take?",
@@ -190,6 +192,7 @@ export const en: LandingMessages = {
          },
       ],
    },
+   faqPage: faqPageEn,
    features: {
       crmBentoOrdersAlt:
          "Forwarder orders table with search, agency filters, delivery status, and payment totals",

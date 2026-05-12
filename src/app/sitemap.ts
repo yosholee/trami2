@@ -32,5 +32,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   }));
 
-  return [...home, ...tracking];
+  const faq = locales.map((locale) => ({
+    url: `${base}/${locale}/faq`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: locale === "es" ? 0.75 : 0.7,
+    alternates: {
+      languages: {
+        es: `${base}/es/faq`,
+        en: `${base}/en/faq`,
+      },
+    },
+  }));
+
+  return [...home, ...tracking, ...faq];
 }

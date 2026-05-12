@@ -30,7 +30,7 @@ export function LandingSections({
          <LocalAreasSection m={m} />
          <FeaturesDark m={m} />
          <Testimonials m={m} />
-         <FaqSection m={m} />
+         <FaqSection m={m} locale={locale} />
          <ContactFooter m={m} />
       </>
    );

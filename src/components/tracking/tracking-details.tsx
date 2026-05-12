@@ -208,33 +208,33 @@ function VerticalTimeline({
 }): ReactElement {
    const sorted = sortTimelineNewestFirst(events);
 
-   const trackPx = "w-6 shrink-0";
-
    return (
       <div className="min-w-0 border-t border-zinc-100 bg-zinc-50/40 p-6 sm:border-t-0 sm:bg-transparent lg:border-l lg:border-zinc-100 lg:bg-zinc-50/25 xl:px-10 dark:border-white/10 dark:bg-zinc-900/35 dark:sm:bg-transparent dark:lg:bg-zinc-900/35">
          <div className="mb-10 flex items-center gap-3">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zic-400">{heading}</h3>
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">{heading}</h3>
             <span className="h-px flex-1 bg-zinc-200 dark:bg-white/15" aria-hidden />
          </div>
-         <div className="relative">
-            {sorted.length > 1 ? (
-               <div
-                  aria-hidden
-                  className="pointer-events-none absolute bottom-[calc(22px+-1px)] left-3 top-[calc(11px+-1px)] z-0 w-[1px] -translate-x-1/2 bg-zinc-200 dark:bg-zinc-600"
-               />
-            ) : null}
-            <ul className="relative z-[1] space-y-10">
+         <div>
+            <ul className="space-y-10">
                {sorted.map((ev, idx) => {
                   const terminal = isTerminalDelivery(ev);
                   const showTerminalBadge = terminal && idx === 0;
                   const key = `${ev.timestamp ?? "x"}-${ev.statusCode}-${idx}`;
+                  const isLastStep = idx === sorted.length - 1;
 
                   return (
-                     <li key={key} className="relative grid grid-cols-[theme(spacing.6)_minmax(0,1fr)] items-start gap-x-5">
-                        <div className={`relative flex ${trackPx} justify-center`}>
+                     <li key={key} className="grid grid-cols-[24px_minmax(0,1fr)] items-start gap-x-5 gap-y-0">
+                        <div className="relative flex w-full flex-col items-center justify-start pt-px">
+                           {!isLastStep ? (
+                              <span
+                                 aria-hidden
+                                 className="pointer-events-none absolute left-1/2 top-3 z-0 w-px -translate-x-1/2 bg-zinc-200 dark:bg-zinc-600"
+                                 style={{ height: "calc(100% + 2.5rem)" }}
+                              />
+                           ) : null}
                            <span
                               className={cn(
-                                 "relative z-[2] mt-px flex size-[22px] shrink-0 items-center justify-center rounded-full border-2 bg-white shadow-sm dark:bg-zinc-950",
+                                 "relative z-[1] flex size-[22px] shrink-0 items-center justify-center rounded-full border-2 bg-white shadow-sm dark:bg-zinc-950",
                                  terminal
                                     ? "border-emerald-500 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400"
                                     : "border-[#eab308] text-[#ca8a04] dark:border-[#facc15] dark:text-[#fde047]",

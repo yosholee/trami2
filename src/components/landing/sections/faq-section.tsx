@@ -1,6 +1,9 @@
+import Link from "next/link";
+
+import type { Locale } from "@/i18n/config";
 import type { LandingMessages } from "@/i18n/types";
 
-export function FaqSection({ m }: { m: LandingMessages }): React.ReactElement {
+export function FaqSection({ m, locale }: { m: LandingMessages; locale: Locale }): React.ReactElement {
    const f = m.faq;
    const supportEmailHref = `mailto:${m.footer.email}`;
    return (
@@ -17,7 +20,7 @@ export function FaqSection({ m }: { m: LandingMessages }): React.ReactElement {
             </h2>
             <p className="mt-4 text-center text-zinc-700 dark:text-zinc-400">{f.sub}</p>
             <div className="mt-10 space-y-3">
-               {f.items.map((item) => (
+               {m.faq.items.map((item) => (
                   <details
                      key={item.q}
                      className="group rounded-2xl border-0 bg-white px-4 py-1 shadow-sm shadow-zinc-900/5 open:bg-zinc-50 open:shadow-md dark:border dark:border-white/10 dark:bg-zinc-900/50 dark:shadow-none dark:open:bg-zinc-900/75"
@@ -34,6 +37,14 @@ export function FaqSection({ m }: { m: LandingMessages }): React.ReactElement {
                   </details>
                ))}
             </div>
+            <p className="mt-8 text-center">
+               <Link
+                  href={`/${locale}/faq`}
+                  className="text-sm font-semibold text-amber-800 underline decoration-amber-700/45 underline-offset-4 hover:text-amber-950 dark:text-[#facc15] dark:decoration-[#facc15]/40 dark:hover:text-[#fde047]"
+               >
+                  {f.viewAll}
+               </Link>
+            </p>
             <p className="mt-10 text-center text-sm text-zinc-700 dark:text-zinc-400">
                {f.moreHelp}{" "}
                <a

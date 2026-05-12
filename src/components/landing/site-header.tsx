@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, Package, X } from "lucide-react";
 
@@ -24,14 +25,25 @@ export interface SiteHeaderProps {
    langSwitcher: LandingMessages["langSwitcher"];
 }
 
-const NAV_FRAGMENTS = ["#inicio", "#opciones-envio", "#precios", "#faq", "#contacto"] as const;
+const NAV_LINKS = ["#inicio", "#opciones-envio", "#precios", "/faq", "#contacto"] as const;
 
-function landingSectionHref(locale: Locale, fragment: (typeof NAV_FRAGMENTS)[number]): string {
-   return `/${locale}${fragment}`;
+function navHref(locale: Locale, segment: (typeof NAV_LINKS)[number]): string {
+   return segment.startsWith("#") ? `/${locale}${segment}` : `/${locale}${segment}`;
+}
+
+function isNavActive(pathname: string | null, locale: Locale, segment: (typeof NAV_LINKS)[number]): boolean {
+   if (segment === "/faq") {
+      return pathname === `/${locale}/faq`;
+   }
+   if (segment === "#inicio") {
+      return pathname === `/${locale}` || pathname === `/${locale}/`;
+   }
+   return false;
 }
 
 export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): React.ReactElement {
    const [open, setOpen] = useState(false);
+   const pathname = usePathname();
 
    const labels = [nav.home, nav.services, nav.pricing, nav.faq, nav.contact] as const;
 
@@ -39,7 +51,7 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
       <header className="sticky top-0 z-50 border-b-0 bg-white/92 shadow-[0_1px_0_0_rgba(0,0,0,0.06)] backdrop-blur-md dark:border-b dark:border-white/10 dark:bg-[#1a1a1a]/75 dark:shadow-none">
          <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[4.5rem] sm:gap-4 sm:px-6 lg:px-8">
             <Link
-               href={landingSectionHref(locale, "#inicio")}
+               href={navHref(locale, "#inicio")}
                className="flex shrink-0 items-center gap-2 text-lg font-semibold tracking-tight text-zinc-950 dark:text-white"
             >
                <span className="flex size-9 items-center justify-center rounded-xl bg-[#FFB800] text-zinc-950">
@@ -50,13 +62,13 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
 
             <NavigationMenu className="hidden max-w-none flex-1 justify-center lg:flex">
                <NavigationMenuList className="gap-1">
-                  {NAV_FRAGMENTS.map((fragment, i) => {
-                     const href = landingSectionHref(locale, fragment);
+                  {NAV_LINKS.map((segment, i) => {
+                     const href = navHref(locale, segment);
                      return (
-                     <NavigationMenuItem key={fragment}>
+                     <NavigationMenuItem key={segment}>
                         <NavigationMenuLink
                            render={<Link href={href} />}
-                           active={fragment === "#inicio"}
+                           active={isNavActive(pathname, locale, segment)}
                            className="rounded-full px-3 py-2 text-sm font-medium text-zinc-700 transition-colors duration-150 hover:bg-zinc-950/[0.07] hover:text-zinc-950 data-active:bg-transparent data-active:text-amber-800 data-active:hover:bg-transparent data-active:hover:text-amber-800 data-active:underline data-active:decoration-amber-700 data-active:decoration-2 data-active:underline-offset-8 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white dark:data-active:text-[#FFB800] dark:data-active:hover:text-[#FFB800] dark:data-active:decoration-[#FFB800] xl:px-4"
                         >
                            {labels[i]}
@@ -96,11 +108,11 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
             )}
          >
             <nav className="flex flex-col gap-2">
-               {NAV_FRAGMENTS.map((fragment, i) => {
-                  const href = landingSectionHref(locale, fragment);
+               {NAV_LINKS.map((segment, i) => {
+                  const href = navHref(locale, segment);
                   return (
                   <Link
-                     key={fragment}
+                     key={segment}
                      href={href}
                      className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 transition-colors duration-150 hover:bg-zinc-950/[0.07] dark:text-zinc-200 dark:hover:bg-white/10"
                      onClick={() => setOpen(false)}

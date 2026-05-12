@@ -13,7 +13,6 @@ import {
 
 function buildJsonLd(locale: Locale): Record<string, unknown> {
   const m = getDictionary(locale);
-  const faqEntities = m.faq.items;
 
   const base = siteUrl.replace(/\/$/, "");
   const trackingSearchTemplate = `${base}/${locale}/tracking?search={search_term_string}`;
@@ -103,18 +102,6 @@ function buildJsonLd(locale: Locale): Record<string, unknown> {
         ],
         serviceType:
           "International parcel delivery and door-to-door logistics from Florida Gulf Coast (Sarasota, Bradenton, Tampa) to Cuba",
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${siteUrl}/#faq`,
-        mainEntity: faqEntities.map((item) => ({
-          "@type": "Question",
-          name: item.q,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.a,
-          },
-        })),
       },
     ],
   };

@@ -1,4 +1,5 @@
 import type { LandingMessages } from "@/i18n/types";
+import { faqPageEs } from "@/i18n/content/faq-page.es";
 
 export const es: LandingMessages = {
    meta: {
@@ -167,6 +168,7 @@ export const es: LandingMessages = {
       sub: "Respuestas rápidas sobre plazos, contenidos permitidos, seguro y rastreo.",
       moreHelp: "¿Necesitas más ayuda?",
       supportLink: "Enviar email a soporte de TramiXpress",
+      viewAll: "Ver todas las preguntas",
       items: [
          {
             q: "¿Cuánto tarda un envío a Cuba?",
@@ -190,6 +192,7 @@ export const es: LandingMessages = {
          },
       ],
    },
+   faqPage: faqPageEs,
    features: {
       crmBentoOrdersAlt:
          "Tabla de órdenes del forwarder con búsqueda, filtros por agencia, estado de entrega y totales de pago",

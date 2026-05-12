@@ -17,6 +17,13 @@ export interface FaqItem {
    a: string;
 }
 
+export interface FaqSectionBlock {
+   /** Stable id for anchors / schema; ASCII slug. */
+   id: string;
+   title: string;
+   items: FaqItem[];
+}
+
 export interface Testimonial {
    name: string;
    role: string;
@@ -133,7 +140,23 @@ export interface LandingMessages {
       sub: string;
       moreHelp: string;
       supportLink: string;
+      /** Homepage accordion teaser copy. */
+      viewAll: string;
       items: FaqItem[];
+   };
+   /** Full FAQ hub at `/[locale]/faq` (indexed, FAQPage JSON-LD). */
+   faqPage: {
+      meta: {
+         title: string;
+         description: string;
+         keywords: string;
+      };
+      kicker: string;
+      heading: string;
+      sub: string;
+      ctaTracking: string;
+      backHome: string;
+      sections: FaqSectionBlock[];
    };
    features: {
       crmBentoOrdersAlt: string;
