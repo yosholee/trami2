@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { cookies, headers } from "next/headers";
 import { Geist_Mono, Poppins } from "next/font/google";
 
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { Providers } from "@/components/providers";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -69,6 +70,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col font-sans">
+        <GoogleAnalytics />
         <ThemeProvider>
           <Providers>
             <JsonLd locale={locale} />

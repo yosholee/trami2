@@ -11,6 +11,14 @@ export const landingPageCanvasOverlaysClass =
 /** Canonical marketing / product URL (tramixpress.me). Override in preview with NEXT_PUBLIC_SITE_URL. */
 export const siteUrl: string = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tramixpress.me";
 
+/**
+ * GA4 measurement ID for gtag. Default: production property.
+ * Disable analytics: set NEXT_PUBLIC_GA_MEASUREMENT_ID= (empty) in `.env.local`.
+ */
+const gaFromEnv = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+export const googleAnalyticsMeasurementId: string | null =
+   gaFromEnv === "" ? null : (gaFromEnv?.trim() || "G-W8YRG6HGJD");
+
 /** Official Facebook page (Bradenton, FL). */
 export const socialFacebookUrl = "https://www.facebook.com/TramiXpress/";
 
