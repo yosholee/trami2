@@ -17,7 +17,7 @@ export const siteUrl: string = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tram
  */
 const gaFromEnv = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 export const googleAnalyticsMeasurementId: string | null =
-   gaFromEnv === "" ? null : (gaFromEnv?.trim() || "G-W8YRG6HGJD");
+   gaFromEnv === "" ? null : gaFromEnv?.trim() || "G-W8YRG6HGJD";
 
 /** Official Facebook page (Bradenton, FL). */
 export const socialFacebookUrl = "https://www.facebook.com/TramiXpress/";
@@ -29,8 +29,7 @@ export const socialTiktokUrl = "https://www.tiktok.com/@tramixpress_";
 export const ctEnviosUrl = "https://ctenvios.com";
 
 /** Google Search for TramiXpress (Business / reviews surface in results). */
-export const socialGoogleUrl =
-   "https://www.google.com/search?q=TramiXpress+Sarasota+Bradenton+Tampa+Cuba+shipping";
+export const socialGoogleUrl = "https://www.google.com/search?q=TramiXpress+Sarasota+Bradenton+Tampa+Cuba+shipping";
 
 /** WhatsApp Business number for wa.me (digits only, with country code, no +). Matches public support line. */
 export const whatsappBusinessNumber = "19412782357";

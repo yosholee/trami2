@@ -137,7 +137,7 @@ export const es: LandingMessages = {
       cta: "Empezar envío",
       plans: [
          {
-            name: "Caja pequeña",
+            name: "Caja pequeña 12x12x12",
             price: "$32",
             suffix: " tarifa fija",
             blurb: "Ideal para regalos pequeños y lo esencial.",
@@ -146,15 +146,15 @@ export const es: LandingMessages = {
          },
          {
             name: "Por libra",
-            price: "$1.79",
+            price: "$1.69",
             suffix: "/ lb",
             blurb: "Mejor para paquetes a peso variable.",
             features: ["Peso flexible", "Entrega puerta a puerta", "Rastreo en tiempo real", "Gestión aduanera"],
             highlight: true,
          },
          {
-            name: "Caja grande",
-            price: "$57",
+            name: "Caja grande 16x16x16",
+            price: "$55",
             suffix: " tarifa fija",
             blurb: "Máximo espacio para envíos voluminosos.",
             features: ["16×16×16 pulg", "Entrega puerta a puerta", "Rastreo en tiempo real", "Seguro básico incluido"],
@@ -198,8 +198,7 @@ export const es: LandingMessages = {
          "Tabla de órdenes del forwarder con búsqueda, filtros por agencia, estado de entrega y totales de pago",
       crmBentoDashboardAlt:
          "Panel analítico con ventas del día, ingresos del mes, tasa de crecimiento y gráfico por agencia",
-      crmBentoLogisticsAlt:
-         "Paquetes y peso por agencia y contenedores recientes con estado y progreso",
+      crmBentoLogisticsAlt: "Paquetes y peso por agencia y contenedores recientes con estado y progreso",
       badge: "Nuestras funciones",
       heading: "Herramientas simples, logística seria detrás",
       body: "Crea envíos desde Sarasota, Bradenton o Tampa, sube documentos y comparte el rastreo con tu familia en Cuba: las mismas herramientas que usan clientes cada semana en TramiXpress.",

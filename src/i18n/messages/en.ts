@@ -44,7 +44,8 @@ export const en: LandingMessages = {
       calloutHitch: "a hitch",
       calloutPrior: "Prioritizing",
       calloutConvenience: "customer convenience",
-      mobileTagline: "Bradenton location serving Sarasota, Bradenton, Tampa, and nearby Gulf Coast families shipping to Cuba.",
+      mobileTagline:
+         "Bradenton location serving Sarasota, Bradenton, Tampa, and nearby Gulf Coast families shipping to Cuba.",
       imageAlt: "Cheerful delivery courier on a yellow scooter with stacked packages",
    },
    trust: {
@@ -146,7 +147,7 @@ export const en: LandingMessages = {
          },
          {
             name: "Per pound",
-            price: "$1.79",
+            price: "$1.69",
             suffix: "/ lb",
             blurb: "Best for custom-weight packages.",
             features: ["Flexible weight", "Door-to-door delivery", "Real-time tracking", "Customs handling"],
@@ -154,7 +155,7 @@ export const en: LandingMessages = {
          },
          {
             name: "Large box",
-            price: "$57",
+            price: "$55",
             suffix: " flat rate",
             blurb: "Maximum space for large shipments.",
             features: ["16×16×16 in", "Door-to-door delivery", "Real-time tracking", "Basic insurance included"],
@@ -194,12 +195,10 @@ export const en: LandingMessages = {
    },
    faqPage: faqPageEn,
    features: {
-      crmBentoOrdersAlt:
-         "Forwarder orders table with search, agency filters, delivery status, and payment totals",
+      crmBentoOrdersAlt: "Forwarder orders table with search, agency filters, delivery status, and payment totals",
       crmBentoDashboardAlt:
          "Analytics dashboard with daily sales, monthly revenue, growth rate, and agency sales chart",
-      crmBentoLogisticsAlt:
-         "Packages and weight by agency plus latest containers with status and progress",
+      crmBentoLogisticsAlt: "Packages and weight by agency plus latest containers with status and progress",
       badge: "Our features",
       heading: "Easy tools with serious logistics behind them",
       body: "Create shipments from Sarasota, Bradenton, or Tampa, upload documents, and share tracking with family in Cuba—the same tools customers use every week on TramiXpress.",
