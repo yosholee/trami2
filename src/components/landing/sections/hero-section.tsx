@@ -158,10 +158,10 @@ export function HeroSection({ m, locale }: { m: LandingMessages; locale: Locale 
                         </div>
                      </div>
 
-                     <div className="pointer-events-none absolute bottom-[18%] left-0 z-20 hidden max-w-[200px] md:block lg:max-w-[230px]">
-                        <div className="relative pr-10 text-left">
+                     <div className="pointer-events-none absolute bottom-[20%] left-0 z-20 hidden max-w-[200px] md:block lg:max-w-[230px]">
+                        <div className="relative pr-10  text-left">
                            <HeroArrowBottomLeft />
-                           <p className="text-xs font-medium leading-snug text-zinc-800 dark:text-zinc-200 lg:text-sm">
+                           <p className="text-xs font-medium translate-y-6 leading-snug text-zinc-800 dark:text-zinc-200 lg:text-sm">
                               {h.calloutPrior}{" "}
                               <span className="font-semibold text-amber-800 dark:text-[#facc15]">
                                  {h.calloutConvenience}
