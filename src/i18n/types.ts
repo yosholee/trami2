@@ -24,6 +24,25 @@ export interface FaqSectionBlock {
    items: FaqItem[];
 }
 
+export interface BlogSectionBlock {
+   heading: string;
+   paragraphs: string[];
+   list?: string[];
+}
+
+export interface BlogPost {
+   /** URL slug, shared by both locales. */
+   slug: string;
+   /** ISO date, YYYY-MM-DD. */
+   date: string;
+   /** Preformatted date for display in this locale. */
+   dateLabel: string;
+   title: string;
+   description: string;
+   keywords: string;
+   sections: BlogSectionBlock[];
+}
+
 export interface Testimonial {
    name: string;
    role: string;
@@ -55,6 +74,7 @@ export interface LandingMessages {
       services: string;
       pricing: string;
       faq: string;
+      blog: string;
       contact: string;
       login: string;
       signup: string;
@@ -157,6 +177,25 @@ export interface LandingMessages {
       ctaTracking: string;
       backHome: string;
       sections: FaqSectionBlock[];
+   };
+   /** Blog hub at `/[locale]/blog` and articles at `/[locale]/blog/[slug]` (indexed, BlogPosting JSON-LD). */
+   blog: {
+      meta: {
+         title: string;
+         description: string;
+         keywords: string;
+      };
+      kicker: string;
+      heading: string;
+      sub: string;
+      readMore: string;
+      backHome: string;
+      backToBlog: string;
+      ctaTitle: string;
+      ctaBody: string;
+      ctaWhatsapp: string;
+      ctaTracking: string;
+      posts: BlogPost[];
    };
    features: {
       crmBentoOrdersAlt: string;

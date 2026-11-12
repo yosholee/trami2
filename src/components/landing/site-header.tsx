@@ -25,7 +25,7 @@ export interface SiteHeaderProps {
    langSwitcher: LandingMessages["langSwitcher"];
 }
 
-const NAV_LINKS = ["#inicio", "#opciones-envio", "#precios", "/faq", "#contacto"] as const;
+const NAV_LINKS = ["#inicio", "#opciones-envio", "#precios", "/faq", "/blog", "#contacto"] as const;
 
 function navHref(locale: Locale, segment: (typeof NAV_LINKS)[number]): string {
    return segment.startsWith("#") ? `/${locale}${segment}` : `/${locale}${segment}`;
@@ -34,6 +34,9 @@ function navHref(locale: Locale, segment: (typeof NAV_LINKS)[number]): string {
 function isNavActive(pathname: string | null, locale: Locale, segment: (typeof NAV_LINKS)[number]): boolean {
    if (segment === "/faq") {
       return pathname === `/${locale}/faq`;
+   }
+   if (segment === "/blog") {
+      return pathname === `/${locale}/blog` || (pathname?.startsWith(`/${locale}/blog/`) ?? false);
    }
    if (segment === "#inicio") {
       return pathname === `/${locale}` || pathname === `/${locale}/`;
@@ -45,7 +48,7 @@ export function SiteHeader({ locale, nav, langSwitcher }: SiteHeaderProps): Reac
    const [open, setOpen] = useState(false);
    const pathname = usePathname();
 
-   const labels = [nav.home, nav.services, nav.pricing, nav.faq, nav.contact] as const;
+   const labels = [nav.home, nav.services, nav.pricing, nav.faq, nav.blog, nav.contact] as const;
 
    return (
       <header className="sticky top-0 z-50 border-b-0 bg-white/92 shadow-[0_1px_0_0_rgba(0,0,0,0.06)] backdrop-blur-md dark:border-b dark:border-white/10 dark:bg-[#1a1a1a]/75 dark:shadow-none">

@@ -1,5 +1,6 @@
 import type { LandingMessages } from "@/i18n/types";
 import { faqPageEs } from "@/i18n/content/faq-page.es";
+import { blogEs } from "@/i18n/content/blog.es";
 
 export const es: LandingMessages = {
    meta: {
@@ -15,6 +16,7 @@ export const es: LandingMessages = {
       services: "Servicios",
       pricing: "Precios",
       faq: "FAQ",
+      blog: "Blog",
       contact: "Contacto",
       login: "Iniciar sesión",
       signup: "Registrarse",
@@ -193,6 +195,7 @@ export const es: LandingMessages = {
       ],
    },
    faqPage: faqPageEs,
+   blog: blogEs,
    features: {
       crmBentoOrdersAlt:
          "Tabla de órdenes del forwarder con búsqueda, filtros por agencia, estado de entrega y totales de pago",
