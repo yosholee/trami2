@@ -311,7 +311,7 @@ export const es: LandingMessages = {
       hubs: "Áreas de servicio",
       siteLink: "tramixpress.me",
       email: "tramixpress2.llc@gmail.com",
-      phone: "(941) 278-2357",
+      phone: "(941) 399-0002",
       address: "1201 9th ST W, Bradenton, FL",
       hub1: "Local en Bradenton sirviendo Sarasota y Tampa",
       hub2: "Puerta a puerta en toda Cuba",

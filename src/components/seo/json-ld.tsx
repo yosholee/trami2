@@ -29,7 +29,7 @@ function buildJsonLd(locale: Locale): Record<string, unknown> {
             description: m.meta.description,
             logo: `${siteUrl}/android-chrome-512x512.png`,
             image: `${siteUrl}/android-chrome-512x512.png`,
-            telephone: "+1-941-278-2357",
+            telephone: "+1-941-399-0002",
             priceRange: "$$",
             sameAs: [socialFacebookUrl, socialTiktokUrl, socialGoogleUrl],
             address: {
@@ -44,7 +44,7 @@ function buildJsonLd(locale: Locale): Record<string, unknown> {
                {
                   "@type": "ContactPoint",
                   contactType: "customer support",
-                  telephone: "+1-941-278-2357",
+                  telephone: "+1-941-399-0002",
                   availableLanguage: ["English", "Spanish"],
                   areaServed: ["US", "CU"],
                },
