@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { locales } from "@/i18n/config";
+import { citySlugs } from "@/i18n/content/city-pages";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { siteUrl } from "@/lib/site";
 
@@ -74,5 +75,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...home, ...tracking, ...faq, ...blog, ...blogPosts];
+  const cities = citySlugs.flatMap((slug) =>
+    locales.map((locale) => ({
+      url: `${base}/${locale}/envios-a-cuba/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: locale === "es" ? 0.8 : 0.75,
+      alternates: {
+        languages: {
+          es: `${base}/es/envios-a-cuba/${slug}`,
+          en: `${base}/en/envios-a-cuba/${slug}`,
+        },
+      },
+    })),
+  );
+
+  return [...home, ...tracking, ...faq, ...blog, ...blogPosts, ...cities];
 }

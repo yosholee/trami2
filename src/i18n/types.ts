@@ -57,9 +57,38 @@ export interface ValueTab {
 
 export interface LocalAreaItem {
    city: string;
+   /** URL slug of the city landing page under `/[locale]/envios-a-cuba/[slug]`. */
+   slug: string;
    title: string;
    body: string;
    cta: string;
+}
+
+/** One city landing page at `/[locale]/envios-a-cuba/[slug]` (local SEO). */
+export interface CityPage {
+   slug: string;
+   city: string;
+   meta: {
+      title: string;
+      description: string;
+      keywords: string;
+   };
+   kicker: string;
+   heading: string;
+   intro: string[];
+   stepsHeading: string;
+   steps: { title: string; text: string }[];
+   faqsHeading: string;
+   faqs: FaqItem[];
+   /** Prefilled WhatsApp message for this city's CTA. */
+   ctaWhatsapp: string;
+   ctaTracking: string;
+}
+
+export interface CityPagesContent {
+   backHome: string;
+   otherCitiesLabel: string;
+   cities: CityPage[];
 }
 
 export interface LandingMessages {
@@ -143,6 +172,8 @@ export interface LandingMessages {
       kicker: string;
       heading: string;
       sub: string;
+      /** Link label to each city's own landing page. */
+      pageLink: string;
       items: LocalAreaItem[];
    };
    pricing: {

@@ -109,21 +109,25 @@ export const en: LandingMessages = {
       kicker: "Service areas",
       heading: "One Bradenton location serving Sarasota, Bradenton & Tampa",
       sub: "These are the three local markets we want to serve and rank for: real Gulf Coast customers sending packages, food, medicine, and essentials to family in Cuba.",
+      pageLink: "See your city page",
       items: [
          {
             city: "Sarasota",
+            slug: "sarasota",
             title: "Shipping to Cuba from Sarasota",
             body: "Sarasota customers can message us for drop-off guidance, nearby pickup options, air or sea shipping, and help preparing food, medicine, and package shipments to Cuba.",
             cta: "I want to ship to Cuba from Sarasota",
          },
          {
             city: "Bradenton",
+            slug: "bradenton",
             title: "Shipping to Cuba from Bradenton",
             body: "Our physical location is in Bradenton, making it the main local point for boxes, packages, food, medicine, tracking help, and door-to-door Cuba delivery.",
             cta: "I want to ship to Cuba from Bradenton",
          },
          {
             city: "Tampa",
+            slug: "tampa",
             title: "Shipping to Cuba from Tampa",
             body: "Tampa and Tampa Bay families can coordinate with TramiXpress for package shipping to Cuba, clear pricing, service options, and WhatsApp support before sending.",
             cta: "I want to ship to Cuba from Tampa",

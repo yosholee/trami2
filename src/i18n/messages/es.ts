@@ -108,21 +108,25 @@ export const es: LandingMessages = {
       kicker: "Áreas de servicio",
       heading: "Bradenton, Sarasota y Tampa",
       sub: "TramiXpress está en Bradenton y sirve a familias cercanas de Sarasota, Tampa y la Costa del Golfo que envían paquetes, comida, medicinas y artículos esenciales a Cuba con rastreo, precios claros y soporte por WhatsApp.",
+      pageLink: "Ver la página de tu ciudad",
       items: [
          {
             city: "Sarasota",
+            slug: "sarasota",
             title: "Envíos a Cuba desde Sarasota",
             body: "Clientes de Sarasota pueden escribirnos para coordinar entrega, opciones de recogida cercanas, envío aéreo o marítimo y ayuda con paquetes de comida, medicinas y cajas a Cuba.",
             cta: "Quiero enviar a Cuba desde Sarasota",
          },
          {
             city: "Bradenton",
+            slug: "bradenton",
             title: "Envíos a Cuba desde Bradenton",
             body: "Nuestro local físico está en Bradenton, el punto principal para cajas, paquetes, comida, medicinas, ayuda con rastreo y entregas puerta a puerta en Cuba.",
             cta: "Quiero enviar a Cuba desde Bradenton",
          },
          {
             city: "Tampa",
+            slug: "tampa",
             title: "Envíos a Cuba desde Tampa",
             body: "Familias de Tampa y Tampa Bay pueden coordinar con TramiXpress para enviar paquetes a Cuba, conocer precios, comparar servicios y recibir soporte por WhatsApp antes de enviar.",
             cta: "Quiero enviar a Cuba desde Tampa",

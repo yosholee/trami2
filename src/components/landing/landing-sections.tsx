@@ -27,7 +27,7 @@ export function LandingSections({
          <PricingSection m={m} />
          <SocialFinalCtaBand m={m} locale={locale} />
          <ServicesSection m={m} />
-         <LocalAreasSection m={m} />
+         <LocalAreasSection m={m} locale={locale} />
          <FeaturesDark m={m} />
          <Testimonials m={m} />
          <FaqSection m={m} locale={locale} />

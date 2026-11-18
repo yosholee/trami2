@@ -1,10 +1,12 @@
-import { MapPin, MessageCircle, PackageCheck } from "lucide-react";
+import { ArrowRight, MapPin, MessageCircle, PackageCheck } from "lucide-react";
+import Link from "next/link";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Locale } from "@/i18n/config";
 import type { LandingMessages } from "@/i18n/types";
 import { whatsappChatUrl } from "@/lib/site";
 
-export function LocalAreasSection({ m }: { m: LandingMessages }): React.ReactElement {
+export function LocalAreasSection({ m, locale }: { m: LandingMessages; locale: Locale }): React.ReactElement {
    const l = m.localAreas;
 
    return (
@@ -41,15 +43,24 @@ export function LocalAreasSection({ m }: { m: LandingMessages }): React.ReactEle
                         </CardHeader>
                         <CardContent className="flex h-full flex-col gap-5 pt-0">
                            <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-400">{item.body}</p>
-                           <a
-                              href={whatsappChatUrl(item.cta)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-amber-800 hover:underline dark:text-[#FFB800]"
-                           >
-                              <MessageCircle className="size-4" aria-hidden />
-                              {item.cta}
-                           </a>
+                           <div className="mt-auto flex flex-col gap-2">
+                              <a
+                                 href={whatsappChatUrl(item.cta)}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 className="inline-flex items-center gap-2 text-sm font-semibold text-amber-800 hover:underline dark:text-[#FFB800]"
+                              >
+                                 <MessageCircle className="size-4" aria-hidden />
+                                 {item.cta}
+                              </a>
+                              <Link
+                                 href={`/${locale}/envios-a-cuba/${item.slug}`}
+                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-white"
+                              >
+                                 {l.pageLink}
+                                 <ArrowRight className="size-4" aria-hidden />
+                              </Link>
+                           </div>
                         </CardContent>
                      </Card>
                   </li>
